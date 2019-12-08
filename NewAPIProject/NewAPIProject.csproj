@@ -248,9 +248,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShippingRequestsController.cs" />
+    <Compile Include="Controllers\SystemParametersController.cs" />
     <Compile Include="Controllers\UsersDeviceTokensController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
+    <Compile Include="Extras\EmailHelper.cs" />
+    <Compile Include="Extras\ParameterRepository.cs" />
     <Compile Include="Extras\ResponseEntity.cs" />
     <Compile Include="Extras\UserVerificationHelper.cs" />
     <Compile Include="Global.asax.cs">
@@ -264,16 +267,23 @@
     <Compile Include="Migrations\201912081738538_userDeviceToken.Designer.cs">
       <DependentUpon>201912081738538_userDeviceToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912081838204_EmailVerification.cs" />
+    <Compile Include="Migrations\201912081838204_EmailVerification.Designer.cs">
+      <DependentUpon>201912081838204_EmailVerification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Contract.cs" />
+    <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ShippingRequest.cs" />
+    <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\UsersDeviceTokens.cs" />
+    <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -347,6 +357,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\SystemParameters\Create.cshtml" />
+    <Content Include="Views\SystemParameters\Delete.cshtml" />
+    <Content Include="Views\SystemParameters\Details.cshtml" />
+    <Content Include="Views\SystemParameters\Edit.cshtml" />
+    <Content Include="Views\SystemParameters\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -370,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912081738538_userDeviceToken.resx">
       <DependentUpon>201912081738538_userDeviceToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912081838204_EmailVerification.resx">
+      <DependentUpon>201912081838204_EmailVerification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

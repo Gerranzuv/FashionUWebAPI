@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using najjar.biz.Context;
-using najjar.biz.Models;
+using najjar.biz.Extra;
+using NewAPIProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,11 +10,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace najjar.biz.Extra
+namespace NewAPIProject.Extra
 {
     public class UserVerificationHelper : Controller
     {
-        private static ApplicationDataContext db = new ApplicationDataContext();
+        private static ApplicationDbContext db = new ApplicationDbContext();
         public static string GenerateCode()
         {
             List<char> chars = new List<char>();
@@ -116,8 +116,8 @@ namespace najjar.biz.Extra
 
             if (isOnProcuctionParameter==1)
             {
-                String subject = "Verfication Code for Najjar Oil Field Account";
-                String body = "Please use the following code to register to our website " + code;
+                String subject = "Verfication Code for FashoinU  Account";
+                String body = "Please use the following code to register to the application " + code;
                 List<string> receivers = new List<string>();
                 receivers.Add(email);
                 EmailHelper.sendEmail(receivers, subject, body);
@@ -129,7 +129,7 @@ namespace najjar.biz.Extra
         public static VerificationResult reSendVerificationLog(string userId, String email)
         {
             VerificationResult result = new VerificationResult();
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDataContext()));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             if (userManager.IsInRole(userId, "Guest"))
             {
                 result.addError("User is already verified!");
@@ -153,7 +153,7 @@ namespace najjar.biz.Extra
         public static VerificationResult verifyCode(string userId, String code)
         {
             VerificationResult result = new VerificationResult();
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDataContext()));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             if (userManager.IsInRole(userId, "Guest")) {
                 result.addError("User is already verified!");
                 return result;

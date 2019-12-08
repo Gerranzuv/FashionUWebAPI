@@ -72,5 +72,10 @@ namespace NewAPIProject.Models
 
         public DbSet<ShippingRequest> ShippingRequests { get; set; }
         public DbSet<UsersDeviceTokens> UsersDeviceTokens { get; set; }
+
+        public DbSet<UserVerificationLog> UserVerificationLogs { get; set; }
+        public DbSet<EmailLog> EmailLogs { get; set; }
+
+        public DbSet<SystemParameter> SystemParameters { get; set; }
     }
 }
