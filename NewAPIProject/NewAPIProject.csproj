@@ -248,14 +248,21 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShippingRequestsController.cs" />
+    <Compile Include="Controllers\UsersDeviceTokensController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
+    <Compile Include="Extras\ResponseEntity.cs" />
+    <Compile Include="Extras\UserVerificationHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201912032127224_one.cs" />
     <Compile Include="Migrations\201912032127224_one.Designer.cs">
       <DependentUpon>201912032127224_one.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912081738538_userDeviceToken.cs" />
+    <Compile Include="Migrations\201912081738538_userDeviceToken.Designer.cs">
+      <DependentUpon>201912081738538_userDeviceToken.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -266,6 +273,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ShippingRequest.cs" />
+    <Compile Include="Models\UsersDeviceTokens.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -359,6 +367,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912032127224_one.resx">
       <DependentUpon>201912032127224_one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912081738538_userDeviceToken.resx">
+      <DependentUpon>201912081738538_userDeviceToken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

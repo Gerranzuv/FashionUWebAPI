@@ -92,6 +92,8 @@ namespace NewAPIProject.Controllers
         }
 
 
+      
+        [AllowAnonymous]
         //GET /api/Core/Download?id=4
         [Route("Download")]
         public HttpResponseMessage GetFile(int id)
