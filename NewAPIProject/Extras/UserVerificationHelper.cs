@@ -130,7 +130,7 @@ namespace NewAPIProject.Extra
         {
             VerificationResult result = new VerificationResult();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            if (userManager.IsInRole(userId, "Guest"))
+            if (userManager.IsInRole(userId, "Client"))
             {
                 result.addError("User is already verified!");
                 return result;
@@ -154,7 +154,7 @@ namespace NewAPIProject.Extra
         {
             VerificationResult result = new VerificationResult();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            if (userManager.IsInRole(userId, "Guest")) {
+            if (userManager.IsInRole(userId, "Client")) {
                 result.addError("User is already verified!");
                 return result;
             }
@@ -175,6 +175,7 @@ namespace NewAPIProject.Extra
                 db.Entry(currentLog).State = EntityState.Modified;
                 db.SaveChanges();
                 assignUserToGuestRole(userId);
+                userManager.RemoveFromRole(userId, "Guest");
                 result.addSuccess("Success");
             }
             else
@@ -186,14 +187,15 @@ namespace NewAPIProject.Extra
 
         public static void assignUserToGuestRole(string userId)
         {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = db.Users.Find(userId);
-            var role=db.Roles.Where(a=>a.Name.Equals("Guest")).FirstOrDefault();
+            var role=db.Roles.Where(a=>a.Name.Equals("Client")).FirstOrDefault();
             user.Roles.Add(new IdentityUserRole()
             {
                 UserId = user.Id,
                 RoleId = role.Id
             });
-
+           
             db.SaveChanges();
         }
 

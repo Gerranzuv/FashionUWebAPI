@@ -14,7 +14,7 @@ namespace NewAPIProject.Models
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "confirmation Date")]
-        public DateTime ConfirmationDate { get; set; }
+        public DateTime? ConfirmationDate { get; set; }
 
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]

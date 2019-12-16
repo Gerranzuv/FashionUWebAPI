@@ -12,6 +12,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using NewAPIProject.Models;
+using NewAPIProject.ViewModels;
 
 namespace NewAPIProject.Controllers
 {
@@ -89,27 +90,32 @@ namespace NewAPIProject.Controllers
         // POST: odata/Products
         public async Task<IHttpActionResult> Post(Product product)
         {
-            if(product.AttachmentId==null)
-            {
-                return BadRequest(ModelState);
-            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            Attachment attachment = db.Attachments.Where(a => a.id.Equals(product.AttachmentId)).FirstOrDefault();
-            if (attachment == null)
-                return BadRequest("Please Upload a valid photo");
-            product.AttachmentId = attachment.id;
+            if (product.Attachments == null)
+                await core.throwExcetpion("Photos can't be null");
+            List<Attachment> photos = new List<Attachment>();
+            foreach (var item in product.Attachments)
+            {
+                Attachment attachment = db.Attachments.Where(a => a.id.Equals(item.id)).FirstOrDefault();
+                if (attachment == null)
+                    return BadRequest("Please Upload a valid photo");
+                photos.Add(attachment);
+
+            }
+            product.Attachments = photos;
+            product.AttachmentId = photos[0].id;
+            //product.AttachmentId = attachment.id;
             product.CreationDate = DateTime.Now;
             product.LastModificationDate = DateTime.Now;
             product.Creator = core.getCurrentUser().UserName;
             product.Modifier = core.getCurrentUser().UserName;
 
-            
             db.Products.Add(product);
             await db.SaveChangesAsync();
-
             return Created(product);
         }
 

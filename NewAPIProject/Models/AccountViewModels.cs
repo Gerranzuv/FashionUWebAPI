@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NewAPIProject.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Web.Security;
 
 namespace NewAPIProject.Models
 {
@@ -50,6 +52,8 @@ namespace NewAPIProject.Models
         public String Name { get; set; }
 
         public String PhoneNumber { get; set; }
+        public List<string> UserRoles { get; set; }
+
     }
 
     public class UserLoginInfoViewModel

@@ -8,6 +8,8 @@ using Newtonsoft.Json.Serialization;
 using System.Web.Http.OData.Builder;
 using System.Web.Http.OData.Extensions;
 using NewAPIProject.Models;
+using NewAPIProject.ViewModels;
+
 namespace NewAPIProject
 {
     public static class WebApiConfig
@@ -25,14 +27,18 @@ namespace NewAPIProject
             builder.EntitySet<Company>("Companies");
             builder.EntitySet<ShippingRequest>("ShippingRequests");
             builder.EntitySet<UsersDeviceTokens>("UsersDeviceTokens");
+            builder.EntitySet<Comment>("Comments");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
+            = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

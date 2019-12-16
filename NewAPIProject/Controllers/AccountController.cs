@@ -17,6 +17,8 @@ using NewAPIProject.Models;
 using NewAPIProject.Providers;
 using NewAPIProject.Results;
 using System.Linq;
+using NewAPIProject.Extra;
+using NewAPIProject.ViewModels;
 
 namespace NewAPIProject.Controllers
 {
@@ -62,7 +64,7 @@ namespace NewAPIProject.Controllers
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = userManager.FindById(User.Identity.GetUserId());
-            return new UserInfoViewModel
+            UserInfoViewModel result =new UserInfoViewModel
             {
 
                 Email = User.Identity.GetUserName(),
@@ -76,10 +78,12 @@ namespace NewAPIProject.Controllers
                 Sex = user.Sex,
                 CreationDate = user.CreationDate,
                 LastModificationDate = user.LastModificationDate,
-                PhoneNumber=user.PhoneNumber
-                
+                PhoneNumber = user.PhoneNumber
 
             };
+            result.UserRoles = userManager.GetRoles(user.Id).ToList() ;
+            return result;
+            //return Ok(user);
         }
 
         // POST api/Account/Logout
@@ -339,6 +343,9 @@ namespace NewAPIProject.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
+            ApplicationUser temp = db.Users.Where(a => a.Email.Equals(model.Email)).FirstOrDefault();
+            if (temp != null)
+                return BadRequest("User is already registered");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -350,6 +357,8 @@ namespace NewAPIProject.Controllers
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            await UserManager.AddToRoleAsync(user.Id, "Guest");
+            UserVerificationHelper.VerificationResult r = UserVerificationHelper.generateVerificationLog(user.Id, model.Email);
 
             if (!result.Succeeded)
             {
@@ -357,6 +366,42 @@ namespace NewAPIProject.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> VerifyEmail(VerifyEmail model)
+        {
+            UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(model.userId, model.code);
+
+            if (result.status.Equals(500))
+                return BadRequest(result.message);
+            else
+                return Ok(result.message);
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> resendCode(VerifyEmail model)
+        {
+            if (model.userId == null)
+                return BadRequest(" user is null");
+            else
+            {
+                ApplicationUser user = db.Users.Where(a => a.Id.Equals(model.userId)).FirstOrDefault();
+                if (user == null)
+                    return BadRequest("No matching user");
+
+                UserVerificationHelper.VerificationResult result = UserVerificationHelper.reSendVerificationLog(model.userId, user.Email);
+                if (result.status.Equals("500"))
+                    return BadRequest(result.message);
+                else
+                {
+                    return Ok(result.message);
+                }
+            }
+
         }
 
         // POST api/Account/RegisterExternal
@@ -412,6 +457,18 @@ namespace NewAPIProject.Controllers
                 return BadRequest("User is already registered");
 
             return Ok();
+        }
+        [Route("GetProducts")]
+        public IQueryable<Product> GetProducts([FromUri] int id)
+        {
+            return db.Products.Include("Attachments").Include("Comments").Where(a=>a.id.Equals(id));
+
+        }
+        [Route("GetProducts")]
+        public IQueryable<Product> GetProducts()
+        {
+            return db.Products.Include("Attachments");
+
         }
 
         #region Helpers

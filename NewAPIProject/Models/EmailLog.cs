@@ -9,9 +9,6 @@ namespace NewAPIProject.Models
 {
     public class EmailLog:BasicModel
     {
-      
-
-            
 
         [Required]
         [Display(Name = "Sender")]

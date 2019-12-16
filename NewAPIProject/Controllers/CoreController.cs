@@ -145,5 +145,16 @@ namespace NewAPIProject.Controllers
             return  userManager.FindById(User.Identity.GetUserId());
             
         }
+
+        public Task<IHttpActionResult> throwExcetpion(String message)
+        {
+
+            var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new StringContent(message),
+                ReasonPhrase = message
+            };
+            throw new HttpResponseException(resp);
+        }
     }
 }

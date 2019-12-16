@@ -1,5 +1,6 @@
 namespace NewAPIProject.Migrations
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,27 @@ namespace NewAPIProject.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.SystemParameters.AddOrUpdate(
+                new Models.SystemParameter
+                {
+                    Name = "Is On Production",
+                    Code = "is_on_production",
+                    Value = "1",
+                    CreationDate = DateTime.Now,
+                    LastModificationDate = DateTime.Now
+                });
+            //context.Roles.AddOrUpdate(new IdentityRole()
+            //{
+            //    Name="Guest"
+
+            //},
+            //new IdentityRole()
+            //{
+            //    Name = "Client"
+
+            //}
+            //);
         }
     }
 }

@@ -77,5 +77,8 @@ namespace NewAPIProject.Models
         public DbSet<EmailLog> EmailLogs { get; set; }
 
         public DbSet<SystemParameter> SystemParameters { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Picklist> Picklists { get; set; }
+        public DbSet<PicklistItem> PicklistItems { get; set; }
     }
 }

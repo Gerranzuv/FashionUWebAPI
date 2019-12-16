@@ -56,8 +56,15 @@ namespace NewAPIProject.Models
         [Display(Name = "Available")]
         public Boolean Available { get; set; }
 
+        public List<Attachment> Attachments { get; set; }
 
 
+        public List<Comment> Comments { get; set; }
 
+        public string FabricType { get; set; }
+
+        public double torsoLength { get; set; }
+
+        public double legLength { get; set; }
     }
 }

@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.OData.Extensions.ODataQueryMapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.OData.Extensions.ODataQueryMapper.2.0.26\lib\net45\Microsoft.AspNet.OData.Extensions.ODataQueryMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -57,6 +60,21 @@
     <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.OData.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Core.7.0.0\lib\portable-net45+win8+wpa81\Microsoft.OData.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.OData.Edm, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Edm.7.0.0\lib\portable-net45+win8+wpa81\Microsoft.OData.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.0.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -72,6 +90,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http.OData, Version=5.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.5.3.1\lib\net45\System.Web.Http.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.OData, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.OData.6.0.0\lib\net45\System.Web.OData.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -243,6 +264,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -271,10 +293,43 @@
     <Compile Include="Migrations\201912081838204_EmailVerification.Designer.cs">
       <DependentUpon>201912081838204_EmailVerification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912151612460_newChanges.cs" />
+    <Compile Include="Migrations\201912151612460_newChanges.Designer.cs">
+      <DependentUpon>201912151612460_newChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912151628387_verification1.cs" />
+    <Compile Include="Migrations\201912151628387_verification1.Designer.cs">
+      <DependentUpon>201912151628387_verification1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912152110396_photos.cs" />
+    <Compile Include="Migrations\201912152110396_photos.Designer.cs">
+      <DependentUpon>201912152110396_photos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912152140176_photos2.cs" />
+    <Compile Include="Migrations\201912152140176_photos2.Designer.cs">
+      <DependentUpon>201912152140176_photos2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912152250405_comments.cs" />
+    <Compile Include="Migrations\201912152250405_comments.Designer.cs">
+      <DependentUpon>201912152250405_comments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912152313501_products1.cs" />
+    <Compile Include="Migrations\201912152313501_products1.Designer.cs">
+      <DependentUpon>201912152313501_products1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912152317221_Picklist.cs" />
+    <Compile Include="Migrations\201912152317221_Picklist.Designer.cs">
+      <DependentUpon>201912152317221_Picklist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912152318280_Picklist1.cs" />
+    <Compile Include="Migrations\201912152318280_Picklist1.Designer.cs">
+      <DependentUpon>201912152318280_Picklist1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\EmailLog.cs" />
@@ -282,6 +337,8 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ShippingRequest.cs" />
     <Compile Include="Models\SystemParameter.cs" />
+    <Compile Include="Models\SystemUtil\Picklist.cs" />
+    <Compile Include="Models\SystemUtil\PicklistItem.cs" />
     <Compile Include="Models\UsersDeviceTokens.cs" />
     <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -293,6 +350,8 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\VerifyEmail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -388,6 +447,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912081838204_EmailVerification.resx">
       <DependentUpon>201912081838204_EmailVerification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912151612460_newChanges.resx">
+      <DependentUpon>201912151612460_newChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912151628387_verification1.resx">
+      <DependentUpon>201912151628387_verification1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912152110396_photos.resx">
+      <DependentUpon>201912152110396_photos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912152140176_photos2.resx">
+      <DependentUpon>201912152140176_photos2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912152250405_comments.resx">
+      <DependentUpon>201912152250405_comments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912152313501_products1.resx">
+      <DependentUpon>201912152313501_products1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912152317221_Picklist.resx">
+      <DependentUpon>201912152317221_Picklist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912152318280_Picklist1.resx">
+      <DependentUpon>201912152318280_Picklist1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
