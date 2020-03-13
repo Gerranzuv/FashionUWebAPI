@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+
+<div class="jumbotron">
+    <h1>Statistics</h1>
+    <p class="lead">
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> All Users </span> <span id="AllUsers"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> All Companies </span> <span id="Admins"> value</span></div>
+        </div>
+        <div class="row " style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> All Products </span> <span id="Clients"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> All Payments: </span> <span id="Interpreters"> value</span></div>
+        </div>
+    </p>
+    <p></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Products List</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Dreams")">Products &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","Dreams")">Add New Product &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Payments</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","InterprationPaths")">Payments &raquo;</a></p>
+        
+    </div>
+    <div class="col-md-4">
+        <h2>Companies</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Interpreters","Account")">Companies &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Interpreters","Account")">Add New Company &raquo;</a></p>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        WorkExperienceLoadData();
+
+    });
+    function WorkExperienceLoadData() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("getAllStatistics", "Account")',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+            var items = '';
+            $('#AllDreams').text(data.AllDreams);
+            $('#ActiveDreams').text(data.allActiveDreams);
+            $('#DoneDreams').text(data.allDoneDreams);
+            $('#Interpreters').text(data.allInterpreters);
+            $('#Clients').text(data.allClients);
+            $('#Admins').text(data.allAdmins);
+            $('#AllUsers').text(data.allUsers);
+
+
+            //$.each(data, function (i, item) {
+            //var from_date = item.From;
+            //var to_date = item.To;
+            //var from =  new Date(parseInt(from_date.substr(6)));
+            //var to = new Date(parseInt(to_date.substr(6)))
+
+            //$('#AllDreams').
+
+            //});
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+       }
+    </script>
+}

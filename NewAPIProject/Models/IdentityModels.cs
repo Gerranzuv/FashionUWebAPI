@@ -80,5 +80,7 @@ namespace NewAPIProject.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Picklist> Picklists { get; set; }
         public DbSet<PicklistItem> PicklistItems { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
     }
 }

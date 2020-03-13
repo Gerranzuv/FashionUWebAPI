@@ -1,0 +1,166 @@
+﻿@model IEnumerable<ControlPanel.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesignerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfItems)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableColors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableSizes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WaistSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SleeveLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bust)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Currency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Available)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FabricType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.torsoLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.legLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModificationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Creator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modifier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttachmentId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpiryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesignerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfItems)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailableColors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailableSizes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WaistSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SleeveLength)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bust)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Currency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Available)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FabricType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.torsoLength)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.legLength)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModificationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modifier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttachmentId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -25,7 +25,7 @@ namespace NewAPIProject.Controllers
 
         //POST /api/Core/Upload 
         [Route("Upload")]
-        public async Task<IHttpActionResult> SaveFile()
+        public async Task<IHttpActionResult> SaveFile([FromUri] string tag)
         {
             var path = Path.GetTempPath();
 
@@ -37,7 +37,9 @@ namespace NewAPIProject.Controllers
             MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(path);
 
             await Request.Content.ReadAsMultipartAsync(streamProvider);
-
+            List<Attachment> result = new List<Attachment>();
+            String[] tags = tag.Split(new Char[] { ';' });
+            int counter = 0;
             foreach (MultipartFileData fileData in streamProvider.FileData)
             {
                 string fileName = "";
@@ -54,7 +56,7 @@ namespace NewAPIProject.Controllers
                 {
                     fileName = Path.GetFileName(fileName);
                 }
-
+                
                 var newFileName = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/"), fileName);
                 var fileInfo = new FileInfo(newFileName);
                 if (fileInfo.Exists)
@@ -69,7 +71,6 @@ namespace NewAPIProject.Controllers
                 {
                     Directory.CreateDirectory(fileInfo.Directory.FullName);
                 }
-
                 Attachment attach = new Attachment();
                 attach.CreationDate = DateTime.Now;
                 attach.LastModificationDate = DateTime.Now;
@@ -78,17 +79,17 @@ namespace NewAPIProject.Controllers
                 attach.Link = newFileName;
                 attach.Creator = getCurrentUser().UserName;
                 attach.Modifier = getCurrentUser().UserName;
-
+                attach.Tag = tag != null ? (tags[counter]) : "Default";
+                counter++;
                 db.Attachments.Add(attach);
                 db.SaveChanges();
 
 
                 File.Move(fileData.LocalFileName, newFileName);
 
-                return Json(attach);
+                result.Add(attach);
             }
-
-            return BadRequest();
+            return Json(result);
         }
 
 

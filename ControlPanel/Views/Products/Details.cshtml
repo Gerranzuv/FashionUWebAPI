@@ -1,0 +1,203 @@
+﻿@model ControlPanel.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesignerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfItems)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfItems)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableColors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableColors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableSizes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableSizes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WaistSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WaistSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SleeveLength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SleeveLength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bust)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bust)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Available)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Available)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FabricType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FabricType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.torsoLength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.torsoLength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.legLength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.legLength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModificationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModificationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modifier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modifier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttachmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttachmentId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

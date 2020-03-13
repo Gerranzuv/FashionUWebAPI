@@ -100,7 +100,7 @@ namespace NewAPIProject.Controllers
             if (product == null)
                 return BadRequest("No Matching product!");
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            comment.Creator = core.getCurrentUser().Id;
+            comment.Creator = core.getCurrentUser().Name;
             comment.Modifier = core.getCurrentUser().Id;
             comment.LastModificationDate = DateTime.Now;
             comment.CreationDate = DateTime.Now;

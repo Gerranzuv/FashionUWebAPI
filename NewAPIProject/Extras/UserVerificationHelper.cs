@@ -10,6 +10,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+/**
+ * 
+ * Author Kinan N Abbas
+ * 15/12/2019
+ */
 namespace NewAPIProject.Extra
 {
     public class UserVerificationHelper : Controller

@@ -64,9 +64,9 @@ namespace NewAPIProject.Controllers
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var user = userManager.FindById(User.Identity.GetUserId());
-            UserInfoViewModel result =new UserInfoViewModel
+            UserInfoViewModel result = new UserInfoViewModel
             {
-
+                Id = user.Id,
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
@@ -365,7 +365,7 @@ namespace NewAPIProject.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(user);
         }
 
         [HttpPost]
@@ -374,10 +374,10 @@ namespace NewAPIProject.Controllers
         {
             UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(model.userId, model.code);
 
-            if (result.status.Equals(500))
+            if (result.status.Equals("500"))
                 return BadRequest(result.message);
             else
-                return Ok(result.message);
+                return Ok(result);
 
         }
 
@@ -398,7 +398,7 @@ namespace NewAPIProject.Controllers
                     return BadRequest(result.message);
                 else
                 {
-                    return Ok(result.message);
+                    return Ok(result);
                 }
             }
 
@@ -448,7 +448,7 @@ namespace NewAPIProject.Controllers
             base.Dispose(disposing);
         }
 
-
+        [AllowAnonymous]
         [Route("checkIfEmailAvailbleToUser")]
         public IHttpActionResult checkIfEmailAvailbleToUser(string email)
         {

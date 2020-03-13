@@ -38,7 +38,7 @@ namespace NewAPIProject.Controllers
         [EnableQuery]
         public IQueryable<Product> GetProducts()
         {
-            return db.Products;
+            return db.Products.OrderByDescending(a=>a.CreationDate);
         }
 
         // GET: odata/Products(5)
