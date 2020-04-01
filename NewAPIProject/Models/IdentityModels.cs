@@ -42,6 +42,8 @@ namespace NewAPIProject.Models
         [Display(Name = "Name")]
         public string Name { get; set; }
 
+        public Boolean companyUser { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -68,7 +70,7 @@ namespace NewAPIProject.Models
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<Company> Companys { get; set; }
+        public DbSet<Company> Companyies { get; set; }
 
         public DbSet<ShippingRequest> ShippingRequests { get; set; }
         public DbSet<UsersDeviceTokens> UsersDeviceTokens { get; set; }

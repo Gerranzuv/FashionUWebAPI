@@ -66,5 +66,9 @@ namespace NewAPIProject.Models
         public double torsoLength { get; set; }
 
         public double legLength { get; set; }
+
+        public Company Company { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }

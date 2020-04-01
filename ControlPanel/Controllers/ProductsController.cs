@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ControlPanel.Models;
+using System.IO;
 
 namespace ControlPanel.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -113,6 +115,15 @@ namespace ControlPanel.Controllers
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public virtual ActionResult Download(int FilePath)
+        {
+            Attachment attach = db.Attachments.Find(FilePath);
+            //fileName should be like "photo.jpg"
+            string fullPath = Path.Combine(Server.MapPath("~/Images/"), attach.FileName);
+            return File(fullPath, "application/octet-stream", attach.FileName);
         }
 
         protected override void Dispose(bool disposing)

@@ -36,7 +36,8 @@ namespace NewAPIProject.Controllers
         [EnableQuery]
         public IQueryable<ShippingRequest> GetShippingRequests()
         {
-            return db.ShippingRequests;
+            string user = core.getCurrentUser().Id;
+            return db.ShippingRequests.Where(a => a.prodcut.Company.CompanyUserId.Equals(user));
         }
 
         // GET: odata/ShippingRequests(5)
@@ -117,11 +118,33 @@ namespace NewAPIProject.Controllers
             {
                 return NotFound();
             }
+            bool scheduledDateUpdated = false;
+            bool StatusUpdated = false;
+            foreach (var fieldname in patch.GetChangedPropertyNames())
+            {
+                if (fieldname.Equals("scheduledDate"))
+                {
+                    scheduledDateUpdated = true;
 
-            patch.Patch(shippingRequest);
+                }
+                if (fieldname.Equals("Status"))
+                {
+                    StatusUpdated = true;
+
+                }
+            }
+                patch.Patch(shippingRequest);
 
             try
             {
+                if (scheduledDateUpdated)
+                {
+                    shippingRequest.Status = "Scheduled";
+                }
+                if (StatusUpdated && shippingRequest.Status.Equals("Cancelled"))
+                {
+                    shippingRequest.CancelationDate = DateTime.Now;
+                }
                 shippingRequest.LastModificationDate = DateTime.Now;
                 shippingRequest.Modifier = core.getCurrentUser().Id;
                 await db.SaveChangesAsync();
@@ -138,7 +161,7 @@ namespace NewAPIProject.Controllers
                 }
             }
 
-            return Updated(shippingRequest);
+            return Ok(shippingRequest);
         }
 
         // DELETE: odata/ShippingRequests(5)

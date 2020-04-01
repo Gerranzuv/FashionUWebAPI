@@ -7,12 +7,23 @@
     <h1>Statistics</h1>
     <p class="lead">
         <div class="row" style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> All Users </span> <span id="AllUsers"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> All Companies </span> <span id="Admins"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> All Clients : </span> <span id="AllClients"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> All Companies : </span> <span id="AllCompanies"> value</span></div>
         </div>
         <div class="row " style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> All Products </span> <span id="Clients"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> All Payments: </span> <span id="Interpreters"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> All Payments :  </span> <span id="AllPayments"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> Payments Sum :</span> <span id="PaymentsSum"> value</span></div>
+        </div>
+        <div class="row " style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> All Shipping Requests : </span> <span id="AllShippingRequests"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> Done Shipping Requests : </span> <span id="DoneShippingRequests"> value</span></div>
+        </div>
+        <div class="row " style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> Open Shipping Requests :</span> <span id="OpenShippingRequests"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> Scheduled Shipping Request :</span> <span id="ScheduledShippingRequest"> value</span></div>
+        </div>
+        <div class="row " style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> All Products :</span> <span id="AllProducts"> value</span></div>
         </div>
     </p>
     <p></p>
@@ -21,18 +32,19 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Products List</h2>
-        <p><a class="btn btn-default" href="@Url.Action("Index","Dreams")">Products &raquo;</a></p>
-        <p><a class="btn btn-default" href="@Url.Action("Create","Dreams")">Add New Product &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Products")">Products &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Payments</h2>
-        <p><a class="btn btn-default" href="@Url.Action("Index","InterprationPaths")">Payments &raquo;</a></p>
+        <h2>Shipping Requests</h2>
+        <p><a class="btn btn-default" href="@Url.Action("OpenShippingRequests","ShippingRequests")">Open Shipping Requests &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("ScheduledShippingRequests","ShippingRequests")">Scheduled Shipping Requests &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("DoneShippingRequests","ShippingRequests")">Done Shipping Requests &raquo;</a></p>
         
     </div>
     <div class="col-md-4">
         <h2>Companies</h2>
-        <p><a class="btn btn-default" href="@Url.Action("Interpreters","Account")">Companies &raquo;</a></p>
-        <p><a class="btn btn-default" href="@Url.Action("Interpreters","Account")">Add New Company &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Companies","Account")">Companies &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Register","Account")">Add New Company &raquo;</a></p>
     </div>
 </div>
 
@@ -51,13 +63,15 @@
             data: {},
             success: function (data) {
             var items = '';
-            $('#AllDreams').text(data.AllDreams);
-            $('#ActiveDreams').text(data.allActiveDreams);
-            $('#DoneDreams').text(data.allDoneDreams);
-            $('#Interpreters').text(data.allInterpreters);
-            $('#Clients').text(data.allClients);
-            $('#Admins').text(data.allAdmins);
-            $('#AllUsers').text(data.allUsers);
+            $('#AllClients').text(data.AllClients);
+            $('#AllCompanies').text(data.AllCompanies);
+            $('#AllPayments').text(data.AllPayments);
+            $('#PaymentsSum').text(data.AllPaymentsSum);
+            $('#AllShippingRequests').text(data.AllShippingRequests);
+            $('#DoneShippingRequests').text(data.DoneShippingReqeusts);
+            $('#OpenShippingRequests').text(data.OpenShippingRequests);
+            $('#ScheduledShippingRequest').text(data.ScheduledShippingRequests);
+            $('#AllProducts').text(data.AllProducts);
 
 
             //$.each(data, function (i, item) {

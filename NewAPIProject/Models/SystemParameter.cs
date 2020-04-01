@@ -9,7 +9,7 @@ namespace NewAPIProject.Models
 {
     public class SystemParameter:BasicModel
     {
-       
+
 
         [Required]
         [Display(Name = "Name")]
@@ -23,6 +23,5 @@ namespace NewAPIProject.Models
         [Required]
         [Display(Name = "Value")]
         public string Value { get; set; }
-
     }
 }

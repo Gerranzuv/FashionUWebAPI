@@ -55,6 +55,8 @@ namespace NewAPIProject.Models
         public String PhoneNumber { get; set; }
         public List<string> UserRoles { get; set; }
 
+        public Boolean companyUser { get; set; }
+
     }
 
     public class UserLoginInfoViewModel

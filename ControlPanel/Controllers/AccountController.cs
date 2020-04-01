@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ControlPanel.Models;
+using ControlPanel.ViewModels;
 
 namespace ControlPanel.Controllers
 {
@@ -18,6 +19,7 @@ namespace ControlPanel.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -151,7 +153,13 @@ namespace ControlPanel.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,
+                    CreationDate = DateTime.Now, LastModificationDate = DateTime.Now,
+                    BirthDate = DateTime.Now, companyUser = true,
+                    Country=model.Country,
+                    Currency=model.Currency,
+                    PhoneNumber=model.phoneNumber,
+                    Name=model.Name};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -163,7 +171,7 @@ namespace ControlPanel.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Companies", "Account");
                 }
                 AddErrors(result);
             }
@@ -402,6 +410,44 @@ namespace ControlPanel.Controllers
         {
             return View();
         }
+
+        public ActionResult Companies()
+        {
+            var users = db.Users.Where(a =>a.companyUser).ToList();
+            return View(users);
+        }
+
+        public ActionResult Clients()
+        {
+            var users = db.Users.Where(a => !a.companyUser).ToList();
+            return View(users);
+        }
+
+
+        // GET api/Account/getAllStatistics
+        [Route("getAllStatistics")]
+        [HttpGet]
+        public JsonResult getAllStatistics()
+        {
+            Statistics result = new Statistics();
+
+
+            result.AllClients = db.Users.Where(a => a.companyUser).Count();
+            result.AllCompanies = db.Companies.Where(a=>a.isActive).Count();
+            result.AllPayments = db.Payments.Count();
+            result.AllPaymentsSum = db.Payments.Sum(a=>a.Amount);
+            result.AllProducts = db.Products.Count();
+            result.AllShippingRequests = db.ShippingRequests.Count();
+            result.OpenShippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Active")).Count();
+            result.ScheduledShippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Scheduled")).Count();
+            result.ScheduledShippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Done")).Count();
+            
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

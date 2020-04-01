@@ -22,5 +22,7 @@ namespace NewAPIProject.Models
         public double Amount { get; set; }
         public string Method { get; set; }
 
+        public string currency { get; set; }
+
     }
 }

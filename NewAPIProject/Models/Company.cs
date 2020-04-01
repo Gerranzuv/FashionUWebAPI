@@ -12,7 +12,7 @@ namespace NewAPIProject.Models
 
         public bool isActive { get; set; }
 
-        public int CompanyUserId { get; set; }
+        public String CompanyUserId { get; set; }
 
         public ApplicationUser CompanyUser { get; set; }
     }

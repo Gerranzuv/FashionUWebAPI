@@ -18,9 +18,16 @@ namespace NewAPIProject.Models
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Scheduled Date")]
-        public DateTime scheduledDate { get; set; }
+        public DateTime? scheduledDate { get; set; }
 
-        
+
+        public Payment Payment { get; set; }
+
+        public int PaymentId { get; set; }
+
+        public DateTime? CancelationDate { get; set; }
+
+        public string ReasonOfCancellation { get; set; }
 
     }
 }

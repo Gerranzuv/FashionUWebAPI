@@ -35,14 +35,15 @@ namespace NewAPIProject.Controllers
         [EnableQuery]
         public IQueryable<Company> GetCompanies()
         {
-            return db.Companys;
+           
+            return db.Companyies;
         }
 
         // GET: odata/Companies(5)
         [EnableQuery]
         public SingleResult<Company> GetCompany([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Companys.Where(company => company.id == key));
+            return SingleResult.Create(db.Companyies.Where(company => company.id == key));
         }
 
         // PUT: odata/Companies(5)
@@ -55,7 +56,7 @@ namespace NewAPIProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            Company company = await db.Companys.FindAsync(key);
+            Company company = await db.Companyies.FindAsync(key);
             if (company == null)
             {
                 return NotFound();
@@ -94,7 +95,7 @@ namespace NewAPIProject.Controllers
             company.LastModificationDate = DateTime.Now;
             company.Creator = core.getCurrentUser().UserName;
             company.Modifier = core.getCurrentUser().UserName;
-            db.Companys.Add(company);
+            db.Companyies.Add(company);
             await db.SaveChangesAsync();
 
             return Created(company);
@@ -111,7 +112,7 @@ namespace NewAPIProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            Company company = await db.Companys.FindAsync(key);
+            Company company = await db.Companyies.FindAsync(key);
             if (company == null)
             {
                 return NotFound();
@@ -143,24 +144,24 @@ namespace NewAPIProject.Controllers
         // DELETE: odata/Companies(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Company company = await db.Companys.FindAsync(key);
+            Company company = await db.Companyies.FindAsync(key);
             if (company == null)
             {
                 return NotFound();
             }
 
-            db.Companys.Remove(company);
+            db.Companyies.Remove(company);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/Companies(5)/CompanyUser
-        [EnableQuery]
-        public SingleResult<ApplicationUser> GetCompanyUser([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.Companys.Where(m => m.id == key).Select(m => m.CompanyUser));
-        }
+        //// GET: odata/Companies(5)/CompanyUser
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetCompanyUser([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.Companyies.Where(m => m.id == key).Select(m => m.CompanyUser));
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -173,7 +174,7 @@ namespace NewAPIProject.Controllers
 
         private bool CompanyExists(int key)
         {
-            return db.Companys.Count(e => e.id == key) > 0;
+            return db.Companyies.Count(e => e.id == key) > 0;
         }
     }
 }

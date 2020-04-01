@@ -10,8 +10,8 @@ namespace NewAPIProject.Extras
     public static class PushNotificationLogic
     {
         private static Uri FireBasePushNotificationsURL = new Uri("https://fcm.googleapis.com/fcm/send");
-        private static string ServerKey = "AAAAvyGBjd4:APA91bEF_QGi1-AexAGapECRzf3x4RGoGOh4Rvu-3dNI2FfsIVaIkT39qI-jNdPf8Q_o-wxPBdDDNDwBIr1VH4B1vin-9uCCfKl_fV3Tiz1ZOkIPlJ-Z6Iqz1yfDUZieyQMhMjdx4cm6";
-        private static string SenderId = "820900892126";
+        private static string ServerKey = "AAAARzoqxcs:APA91bGoIHrD0ueZjNIFzJZx9nwJFVH1zenmCQqPkvugGYtQincSaXNxrfA_3vZhJTSCiXjysR6jF4NyjEueCHDVpABBqcfoKkDE9Opp4zAdVKXwjZ69wOSPQJzWSEghpVkvUmG7ir-X";
+        private static string SenderId = "305918559691";
         /// <summary>
         /// 
         /// </summary>

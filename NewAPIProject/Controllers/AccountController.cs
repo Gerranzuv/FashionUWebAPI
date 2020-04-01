@@ -30,6 +30,7 @@ namespace NewAPIProject.Controllers
         private ApplicationUserManager _userManager;
 
         ApplicationDbContext db = new ApplicationDbContext();
+        CoreController core = new CoreController();
 
         public AccountController()
         {
@@ -78,7 +79,8 @@ namespace NewAPIProject.Controllers
                 Sex = user.Sex,
                 CreationDate = user.CreationDate,
                 LastModificationDate = user.LastModificationDate,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                companyUser=user.companyUser
 
             };
             result.UserRoles = userManager.GetRoles(user.Id).ToList() ;
@@ -577,5 +579,100 @@ namespace NewAPIProject.Controllers
         }
 
         #endregion
+        [Route("BuyProduct")]
+        [HttpGet]
+        public IHttpActionResult BuyProduct( int ProductId)
+
+        {
+            ApplicationUser user = core.getCurrentUser();
+            Product product = db.Products.Find(ProductId);
+            if (user == null)
+            {
+                return BadRequest("No Matching User!");
+            }
+            if (product == null)
+            {
+                return BadRequest("No Matching Product!");
+            }
+            //var tokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(product.Company.CompanyUserId));
+            //Add new Product
+            Payment payment=addNewProduct(product, user);
+
+            //Add Shipping Request
+            ShippingRequest request = addShippingRequest(user, payment);
+
+            //Send Notification to Company User
+            sendNotification(user,request);
+
+            
+            return Ok();
+        }
+
+        private ShippingRequest addShippingRequest(ApplicationUser user, Payment payment)
+        {
+            ShippingRequest request = new ShippingRequest();
+            request.productId = payment.productId;
+            request.prodcut = payment.prodcut;
+            request.Creator = user.Id;
+            request.Modifier = user.Id;
+            request.Payment = payment;
+            request.PaymentId = payment.id;
+            request.CreationDate = DateTime.Now;
+            request.LastModificationDate = DateTime.Now;
+            request.Status = "Active";
+
+            db.ShippingRequests.Add(request);
+            db.SaveChanges();
+            return request;
+
+        }
+
+        private void sendNotification(ApplicationUser user, ShippingRequest request)
+        {
+            //Implementation here
+        }
+
+        private Payment addNewProduct(Product product, ApplicationUser user)
+        {
+            Payment payment = new Payment()
+            {
+                CreationDate = DateTime.Now,
+                Amount = product.Price,
+                Company = product.Company,
+                CompanyId = product.CompanyId,
+                Creator = core.getCurrentUser().Id,
+                Modifier = core.getCurrentUser().Id,
+                LastModificationDate = DateTime.Now,
+                Method = "Cash Payment",
+                prodcut = product,
+                productId = product.id,
+                Status = "Done",
+                currency = product.Currency
+            };
+            db.Payments.Add(payment);
+            db.SaveChanges();
+            return payment;
+        }
+
+        [Route("GetCompanies")]
+        public List<CompanyViewModel> GetCompanies()
+        {
+            return db.Companyies.Select(a => new CompanyViewModel
+            {
+                CompanyUserId = a.CompanyUserId,
+                id = a.id,
+                isActive = a.isActive,
+                CompanyUserName = a.CompanyUser.Name
+            }).ToList() ;
+
+        }
+
+        [Route("GetShippingRequests")]
+        public List<ShippingRequest> GetShippingRequests()
+        {
+            string user = core.getCurrentUser().Id;
+            return db.ShippingRequests.Include("prodcut").Where(a => a.prodcut.Company.CompanyUserId.Equals(user)
+                    &&(a.Status.Equals("Active")||a.Status.Equals("Scheduled"))).ToList();
+        }
     }
 }

@@ -109,6 +109,13 @@ namespace NewAPIProject.Controllers
             product.Attachments = photos;
             product.AttachmentId = photos[0].id;
             //product.AttachmentId = attachment.id;
+
+            if (product.CompanyId == null)
+                return BadRequest("Company Can't be null");
+            Company company = db.Companyies.Find(product.CompanyId);
+            if (company == null)
+                return BadRequest("No matching company");
+            product.Company = company;
             product.CreationDate = DateTime.Now;
             product.LastModificationDate = DateTime.Now;
             product.Creator = core.getCurrentUser().UserName;

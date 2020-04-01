@@ -3,7 +3,7 @@ namespace NewAPIProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class payment21 : DbMigration
+    public partial class companyUse : DbMigration
     {
         public override void Up()
         {

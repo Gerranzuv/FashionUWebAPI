@@ -190,9 +190,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShippingRequestsController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,11 +203,16 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ShippingRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\Statistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\app\js\dashboard.js" />
@@ -487,6 +495,7 @@
     <Content Include="assets\vendors\base\fonts\summernote\summernote.eot" />
     <Content Include="assets\vendors\base\fonts\summernote\summernote.ttf" />
     <Content Include="assets\vendors\base\fonts\summernote\summernote.woff" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -540,6 +549,26 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Account\Clients.cshtml" />
+    <Content Include="Views\Account\Companies.cshtml" />
+    <Content Include="Views\Payments\Create.cshtml" />
+    <Content Include="Views\Payments\Delete.cshtml" />
+    <Content Include="Views\Payments\Details.cshtml" />
+    <Content Include="Views\Payments\Edit.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
+    <Content Include="Views\ShippingRequests\Create.cshtml" />
+    <Content Include="Views\ShippingRequests\Delete.cshtml" />
+    <Content Include="Views\ShippingRequests\Details.cshtml" />
+    <Content Include="Views\ShippingRequests\Edit.cshtml" />
+    <Content Include="Views\ShippingRequests\Index.cshtml" />
+    <Content Include="Views\ShippingRequests\OpenShippingRequests.cshtml" />
+    <Content Include="Views\ShippingRequests\DoneShippingRequests.cshtml" />
+    <Content Include="Views\ShippingRequests\ScheduledShippingRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
