@@ -25,6 +25,8 @@ namespace NewAPIProject.Controllers
     builder.EntitySet<UsersDeviceTokens>("UsersDeviceTokens");
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
+
+        [Authorize]
     public class UsersDeviceTokensController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

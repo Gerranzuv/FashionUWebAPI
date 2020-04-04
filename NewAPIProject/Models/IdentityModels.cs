@@ -84,5 +84,6 @@ namespace NewAPIProject.Models
         public DbSet<PicklistItem> PicklistItems { get; set; }
 
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Contactus> Contactus { get; set; }
     }
 }

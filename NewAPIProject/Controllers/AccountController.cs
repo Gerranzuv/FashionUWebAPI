@@ -596,10 +596,10 @@ namespace NewAPIProject.Controllers
             }
             //var tokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(product.Company.CompanyUserId));
             //Add new Product
-            Payment payment=addNewProduct(product, user);
+            //Payment payment= AddNewPayment(product, user);
 
             //Add Shipping Request
-            ShippingRequest request = addShippingRequest(user, payment);
+            ShippingRequest request = addShippingRequest(user,product);
 
             //Send Notification to Company User
             sendNotification(user,request);
@@ -608,15 +608,15 @@ namespace NewAPIProject.Controllers
             return Ok();
         }
 
-        private ShippingRequest addShippingRequest(ApplicationUser user, Payment payment)
+        private ShippingRequest addShippingRequest(ApplicationUser user, Product product)
         {
             ShippingRequest request = new ShippingRequest();
-            request.productId = payment.productId;
-            request.prodcut = payment.prodcut;
+            request.productId = product.id;
+            request.prodcut = product;
             request.Creator = user.Id;
             request.Modifier = user.Id;
-            request.Payment = payment;
-            request.PaymentId = payment.id;
+            //request.Payment = payment;
+            //request.PaymentId = payment.id;
             request.CreationDate = DateTime.Now;
             request.LastModificationDate = DateTime.Now;
             request.Status = "Active";
@@ -632,7 +632,7 @@ namespace NewAPIProject.Controllers
             //Implementation here
         }
 
-        private Payment addNewProduct(Product product, ApplicationUser user)
+        public Payment AddNewPayment(Product product, ApplicationUser user)
         {
             Payment payment = new Payment()
             {
@@ -640,8 +640,8 @@ namespace NewAPIProject.Controllers
                 Amount = product.Price,
                 Company = product.Company,
                 CompanyId = product.CompanyId,
-                Creator = core.getCurrentUser().Id,
-                Modifier = core.getCurrentUser().Id,
+                Creator = user.Id,
+                Modifier = user.Id,
                 LastModificationDate = DateTime.Now,
                 Method = "Cash Payment",
                 prodcut = product,
@@ -650,7 +650,7 @@ namespace NewAPIProject.Controllers
                 currency = product.Currency
             };
             db.Payments.Add(payment);
-            db.SaveChanges();
+            //db.SaveChanges();
             return payment;
         }
 

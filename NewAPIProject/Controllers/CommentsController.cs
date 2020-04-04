@@ -29,6 +29,8 @@ namespace NewAPIProject.Controllers
     builder.EntitySet<Product>("Products"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
+
+    [Authorize]
     public class CommentsController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

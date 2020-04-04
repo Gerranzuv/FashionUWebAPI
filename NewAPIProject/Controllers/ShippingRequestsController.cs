@@ -31,7 +31,7 @@ namespace NewAPIProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private CoreController core = new CoreController();
-
+        private AccountController account = new AccountController();
         // GET: odata/ShippingRequests
         [EnableQuery]
         public IQueryable<ShippingRequest> GetShippingRequests()
@@ -141,10 +141,19 @@ namespace NewAPIProject.Controllers
                 {
                     shippingRequest.Status = "Scheduled";
                 }
-                if (StatusUpdated && shippingRequest.Status.Equals("Cancelled"))
-                {
-                    shippingRequest.CancelationDate = DateTime.Now;
+                if (StatusUpdated ) {
+                    if(shippingRequest.Status.Equals("Cancelled"))
+                    {
+                        shippingRequest.CancelationDate = DateTime.Now;
+                    }
+                    if (shippingRequest.Status.Equals("Done")) {
+                        Product product = db.Products.Find(shippingRequest.productId);
+                        Payment payment=account.AddNewPayment(product, core.getCurrentUser());
+                        shippingRequest.PaymentId = payment.id;
+                        shippingRequest.Payment = payment;
+                    }
                 }
+                
                 shippingRequest.LastModificationDate = DateTime.Now;
                 shippingRequest.Modifier = core.getCurrentUser().Id;
                 await db.SaveChangesAsync();

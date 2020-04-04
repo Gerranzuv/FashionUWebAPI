@@ -22,34 +22,31 @@ namespace NewAPIProject.Controllers
     using System.Web.Http.OData.Extensions;
     using NewAPIProject.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Company>("Companies");
-    builder.EntitySet<ApplicationUser>("Users"); 
+    builder.EntitySet<Payment>("Payments");
+    builder.EntitySet<Company>("Companys"); 
+    builder.EntitySet<Product>("Products"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-
-    [Authorize]
-    public class CompaniesController : ODataController
+    public class ContactUsController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private CoreController core = new CoreController();
 
-        // GET: odata/Companies
+        // GET: odata/Payments
         [EnableQuery]
-        public IQueryable<Company> GetCompanies()
+        public IQueryable<Contactus> GetPayments()
         {
-           
-            return db.Companyies;
+            return db.Contactus;
         }
 
-        // GET: odata/Companies(5)
+        // GET: odata/Payments(5)
         [EnableQuery]
-        public SingleResult<Company> GetCompany([FromODataUri] int key)
+        public SingleResult<Payment> GetPayment([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Companyies.Where(company => company.id == key));
+            return SingleResult.Create(db.Payments.Where(payment => payment.id == key));
         }
 
-        // PUT: odata/Companies(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<Company> patch)
+        // PUT: odata/Payments(5)
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<Payment> patch)
         {
             Validate(patch.GetEntity());
 
@@ -58,13 +55,13 @@ namespace NewAPIProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            Company company = await db.Companyies.FindAsync(key);
-            if (company == null)
+            Payment payment = await db.Payments.FindAsync(key);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            patch.Put(company);
+            patch.Put(payment);
 
             try
             {
@@ -72,7 +69,7 @@ namespace NewAPIProject.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompanyExists(key))
+                if (!PaymentExists(key))
                 {
                     return NotFound();
                 }
@@ -82,30 +79,26 @@ namespace NewAPIProject.Controllers
                 }
             }
 
-            return Updated(company);
+            return Updated(payment);
         }
 
-        // POST: odata/Companies
-        public async Task<IHttpActionResult> Post(Company company)
+        // POST: odata/Payments
+        public async Task<IHttpActionResult> Post(Payment payment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            company.CreationDate = DateTime.Now;
-            company.LastModificationDate = DateTime.Now;
-            company.Creator = core.getCurrentUser().UserName;
-            company.Modifier = core.getCurrentUser().UserName;
-            db.Companyies.Add(company);
+            db.Payments.Add(payment);
             await db.SaveChangesAsync();
 
-            return Created(company);
+            return Created(payment);
         }
 
-        // PATCH: odata/Companies(5)
+        // PATCH: odata/Payments(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Company> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Payment> patch)
         {
             Validate(patch.GetEntity());
 
@@ -114,23 +107,21 @@ namespace NewAPIProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            Company company = await db.Companyies.FindAsync(key);
-            if (company == null)
+            Payment payment = await db.Payments.FindAsync(key);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(company);
+            patch.Patch(payment);
 
             try
             {
-                company.LastModificationDate = DateTime.Now;
-                company.Modifier = core.getCurrentUser().Id;
                 await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompanyExists(key))
+                if (!PaymentExists(key))
                 {
                     return NotFound();
                 }
@@ -140,30 +131,37 @@ namespace NewAPIProject.Controllers
                 }
             }
 
-            return Updated(company);
+            return Updated(payment);
         }
 
-        // DELETE: odata/Companies(5)
+        // DELETE: odata/Payments(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Company company = await db.Companyies.FindAsync(key);
-            if (company == null)
+            Payment payment = await db.Payments.FindAsync(key);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            db.Companyies.Remove(company);
+            db.Payments.Remove(payment);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //// GET: odata/Companies(5)/CompanyUser
-        //[EnableQuery]
-        //public SingleResult<ApplicationUser> GetCompanyUser([FromODataUri] int key)
-        //{
-        //    return SingleResult.Create(db.Companyies.Where(m => m.id == key).Select(m => m.CompanyUser));
-        //}
+        // GET: odata/Payments(5)/Company
+        [EnableQuery]
+        public SingleResult<Company> GetCompany([FromODataUri] int key)
+        {
+            return SingleResult.Create(db.Payments.Where(m => m.id == key).Select(m => m.Company));
+        }
+
+        // GET: odata/Payments(5)/prodcut
+        [EnableQuery]
+        public SingleResult<Product> Getprodcut([FromODataUri] int key)
+        {
+            return SingleResult.Create(db.Payments.Where(m => m.id == key).Select(m => m.prodcut));
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -174,9 +172,9 @@ namespace NewAPIProject.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CompanyExists(int key)
+        private bool PaymentExists(int key)
         {
-            return db.Companyies.Count(e => e.id == key) > 0;
+            return db.Payments.Count(e => e.id == key) > 0;
         }
     }
 }

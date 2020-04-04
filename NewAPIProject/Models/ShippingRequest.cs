@@ -23,7 +23,7 @@ namespace NewAPIProject.Models
 
         public Payment Payment { get; set; }
 
-        public int PaymentId { get; set; }
+        public int? PaymentId { get; set; }
 
         public DateTime? CancelationDate { get; set; }
 

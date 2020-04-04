@@ -268,6 +268,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShippingRequestsController.cs" />
@@ -353,11 +354,24 @@
     <Compile Include="Migrations\202003300906291_reasonOfCancellation.Designer.cs">
       <DependentUpon>202003300906291_reasonOfCancellation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004041013172_shippingRequestUpdate.cs" />
+    <Compile Include="Migrations\202004041013172_shippingRequestUpdate.Designer.cs">
+      <DependentUpon>202004041013172_shippingRequestUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004041046512_ContactUs.cs" />
+    <Compile Include="Migrations\202004041046512_ContactUs.Designer.cs">
+      <DependentUpon>202004041046512_ContactUs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004041050067_ContactUs1.cs" />
+    <Compile Include="Migrations\202004041050067_ContactUs1.Designer.cs">
+      <DependentUpon>202004041050067_ContactUs1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Contactus.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\EmailLog.cs" />
@@ -522,6 +536,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003300906291_reasonOfCancellation.resx">
       <DependentUpon>202003300906291_reasonOfCancellation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041013172_shippingRequestUpdate.resx">
+      <DependentUpon>202004041013172_shippingRequestUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041046512_ContactUs.resx">
+      <DependentUpon>202004041046512_ContactUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041050067_ContactUs1.resx">
+      <DependentUpon>202004041050067_ContactUs1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
