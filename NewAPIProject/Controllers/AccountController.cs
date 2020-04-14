@@ -580,8 +580,8 @@ namespace NewAPIProject.Controllers
 
         #endregion
         [Route("BuyProduct")]
-        [HttpGet]
-        public IHttpActionResult BuyProduct( int ProductId)
+        [HttpPost]
+        public IHttpActionResult BuyProduct([FromBody]ContactUsBindingModel bind,[FromUri] int ProductId)
 
         {
             ApplicationUser user = core.getCurrentUser();
@@ -599,16 +599,16 @@ namespace NewAPIProject.Controllers
             //Payment payment= AddNewPayment(product, user);
 
             //Add Shipping Request
-            ShippingRequest request = addShippingRequest(user,product);
+            ShippingRequest request = addShippingRequest(user,product,bind);
 
             //Send Notification to Company User
             sendNotification(user,request);
 
             
-            return Ok();
+            return Ok(request);
         }
 
-        private ShippingRequest addShippingRequest(ApplicationUser user, Product product)
+        private ShippingRequest addShippingRequest(ApplicationUser user, Product product,ContactUsBindingModel temp)
         {
             ShippingRequest request = new ShippingRequest();
             request.productId = product.id;
@@ -620,6 +620,9 @@ namespace NewAPIProject.Controllers
             request.CreationDate = DateTime.Now;
             request.LastModificationDate = DateTime.Now;
             request.Status = "Active";
+            request.phoneNumber = temp.phoneNumber;
+            request.Address = temp.Address;
+            request.Email = temp.Email;
 
             db.ShippingRequests.Add(request);
             db.SaveChanges();
@@ -673,6 +676,33 @@ namespace NewAPIProject.Controllers
             string user = core.getCurrentUser().Id;
             return db.ShippingRequests.Include("prodcut").Where(a => a.prodcut.Company.CompanyUserId.Equals(user)
                     &&(a.Status.Equals("Active")||a.Status.Equals("Scheduled"))).ToList();
+        }
+
+
+        [Route("ContactUs")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Post(ContactUsBindingModel bind)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Contactus temp = new Contactus();
+            temp.Text = bind.Text;
+            temp.Title = bind.Title;
+            temp.phoneNumber = bind.phoneNumber;
+            temp.Email = bind.Email;
+            ApplicationUser user = core.getCurrentUser();
+            temp.CreationDate = DateTime.Now;
+            temp.LastModificationDate = DateTime.Now;
+            temp.Creator = user.Id;
+            temp.Modifier = user.Id;
+            //temp.RelatedUser = user;
+            //temp.RelatedUserId = user.Id;
+            db.Contactuss.Add(temp);
+            await db.SaveChangesAsync();
+
+            return Ok(temp);
         }
     }
 }

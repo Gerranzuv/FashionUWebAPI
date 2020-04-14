@@ -29,6 +29,7 @@ namespace NewAPIProject
             builder.EntitySet<UsersDeviceTokens>("UsersDeviceTokens");
             builder.EntitySet<Comment>("Comments");
             builder.EntitySet<Payment>("Payments");
+            //builder.EntitySet<Contactus>("ContactUss");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
             // Web API routes

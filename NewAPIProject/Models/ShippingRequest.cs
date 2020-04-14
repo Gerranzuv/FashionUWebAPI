@@ -29,5 +29,12 @@ namespace NewAPIProject.Models
 
         public string ReasonOfCancellation { get; set; }
 
+
+        public string Email { get; set; }
+
+        public string phoneNumber { get; set; }
+
+        public string Address { get; set; }
+
     }
 }

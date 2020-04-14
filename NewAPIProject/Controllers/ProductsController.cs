@@ -120,6 +120,8 @@ namespace NewAPIProject.Controllers
             product.LastModificationDate = DateTime.Now;
             product.Creator = core.getCurrentUser().UserName;
             product.Modifier = core.getCurrentUser().UserName;
+            if (product.IsBackGroundWhite == null)
+                product.IsBackGroundWhite = true;
 
             db.Products.Add(product);
             await db.SaveChangesAsync();

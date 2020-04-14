@@ -263,12 +263,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="BindingModels\ContactUsBindingModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShippingRequestsController.cs" />
@@ -365,6 +365,26 @@
     <Compile Include="Migrations\202004041050067_ContactUs1.cs" />
     <Compile Include="Migrations\202004041050067_ContactUs1.Designer.cs">
       <DependentUpon>202004041050067_ContactUs1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051657570_contactus33.cs" />
+    <Compile Include="Migrations\202004051657570_contactus33.Designer.cs">
+      <DependentUpon>202004051657570_contactus33.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004101704322_contact-us-10.cs" />
+    <Compile Include="Migrations\202004101704322_contact-us-10.Designer.cs">
+      <DependentUpon>202004101704322_contact-us-10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004101717399_shippingReuqest2.cs" />
+    <Compile Include="Migrations\202004101717399_shippingReuqest2.Designer.cs">
+      <DependentUpon>202004101717399_shippingReuqest2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004121056024_isWhiteProduct.cs" />
+    <Compile Include="Migrations\202004121056024_isWhiteProduct.Designer.cs">
+      <DependentUpon>202004121056024_isWhiteProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004121103044_isBackgroundWhite.cs" />
+    <Compile Include="Migrations\202004121103044_isBackgroundWhite.Designer.cs">
+      <DependentUpon>202004121103044_isBackgroundWhite.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -545,6 +565,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004041050067_ContactUs1.resx">
       <DependentUpon>202004041050067_ContactUs1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051657570_contactus33.resx">
+      <DependentUpon>202004051657570_contactus33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004101704322_contact-us-10.resx">
+      <DependentUpon>202004101704322_contact-us-10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004101717399_shippingReuqest2.resx">
+      <DependentUpon>202004101717399_shippingReuqest2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004121056024_isWhiteProduct.resx">
+      <DependentUpon>202004121056024_isWhiteProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004121103044_isBackgroundWhite.resx">
+      <DependentUpon>202004121103044_isBackgroundWhite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
