@@ -1,8 +1,12 @@
-﻿@model IEnumerable<ControlPanel.Models.Payment>
+﻿@model IEnumerable<ControlPanel.ViewModels.PaymnetViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PLayout.cshtml";
+    var totalPayments = Model.Sum(a=>a.Amount);
+    var CompanyPayments = Model.Sum(a => a.CompanyAmount);
+    var UserPayments = Model.Sum(a => a.UserAmount);
+
 }
 
 <h1>Payments</h1>
@@ -14,45 +18,41 @@
 <div class="container">
     @using (Html.BeginForm())
     {
-        <p>
-            <table align="center">
 
-                <tr>
-                    @*<td style="padding-right:20px;padding-bottom:20px;">
-                        <b>Status</b>
-                    </td>
-                    <td style="padding-right:20px;padding-bottom:20px;">
-=                        <div class="m-input-icon m-input-icon--left">
-                            <input name="SearchString" type="text" class="form-control m-input m-input--air" placeholder="Description .. " id="generalSearch">
-                        </div>
-                    </td>*@
-                    <td style="padding-left:50px;padding-right:20px;padding-bottom:20px;">
-                        <b>Company</b>
-                    </td>
-                    <td style="padding-right:20px;padding-bottom:20px;">
-                        @*@Html.DropDownList("Status", new List<SelectListItem>
-                               { new SelectListItem { Text="Active", Value="Active"},
-                                new SelectListItem{Text="Done", Value="Done"}
-                          }, new { @class = "form-control m-input m-input--air" })*@
-                        @Html.DropDownList("CompanyUserId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
+        <div class="row">
+            <div class="col-md-4">
+                @Html.Label("Company")
+                @Html.DropDownList("CompanyUserId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })   
+            </div>
+            <div class="col-md-4">
+                @Html.Label("From Date")
+                @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+            </div>
+            <div class="col-md-4">
+                @Html.Label("To Date")
+                @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
 
-                    </td>
-                    <td style="padding-bottom:20px">
-                        <button type="submit" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </td>
-                </tr>
+            </div>
+        </div>
+        <br />
+        <div class="text-center">
+            <button type="submit" class="btn btn-default">
+                Filter
+            </button>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <p class="label label-info" style="font-size:large">Total Amount : @totalPayments</p>
+                <p class="label label-info" style="font-size:large"> Total Company's Amount: @CompanyPayments</p>
+                <p class="label label-info" style="font-size:large">Total User's Amount : @UserPayments</p>
+               
+                
+            </div>
+            
+        </div>
 
-            </table>
-
-            <br />
-
-            @*<input id="Search" class="btn btn-primary btn-default"  type="submit" value="Search" style="float: right; position: relative; left: -50%; /* or right 50% */ text-align: left; background-color:#6610f2;color:white" />
-                <button type="submit" style="float:right;" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
-                    <i class="fa fa-search"></i>
-                </button>*@
-        </p>
+    
     }
 </div>
 <br />
@@ -72,19 +72,25 @@
             Product Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Amount)
+           Total Amount
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Method)
+            Company's Amount
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.currency)
+            User's Amount
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
+            Payment Method
+        </th>
+        <th>
+            Currency
+        </th>
+        <th>
+            Creation Date
         </th>
         
 
@@ -97,19 +103,25 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Company.name)
+                    @Html.DisplayFor(modelItem => item.CompanyName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.prodcut.ItemCode)
+                    @Html.DisplayFor(modelItem => item.prodcutCode)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.prodcut.Type)
+                    @Html.DisplayFor(modelItem => item.productType)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserAmount)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Method)

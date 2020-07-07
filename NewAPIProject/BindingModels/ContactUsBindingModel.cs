@@ -17,5 +17,10 @@ namespace NewAPIProject.ViewModels
         public string phoneNumber { get; set; }
 
         public string Address { get; set; }
+
+        public int photoId { get; set; }
+
+        public string size { get; set; }
+
     }
 }

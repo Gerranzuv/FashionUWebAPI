@@ -57,6 +57,8 @@ namespace NewAPIProject.Models
 
         public Boolean companyUser { get; set; }
 
+        public int photoId { get; set; }
+
     }
 
     public class UserLoginInfoViewModel

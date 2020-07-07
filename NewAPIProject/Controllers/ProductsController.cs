@@ -38,7 +38,8 @@ namespace NewAPIProject.Controllers
         [EnableQuery]
         public IQueryable<Product> GetProducts()
         {
-            return db.Products.OrderByDescending(a=>a.CreationDate);
+            DateTime today = DateTime.Now;
+            return db.Products.Where(a => a.ExpiryDate.CompareTo(today) > 0);
         }
 
         // GET: odata/Products(5)

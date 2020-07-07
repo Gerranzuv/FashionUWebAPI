@@ -19,6 +19,9 @@ using NewAPIProject.Results;
 using System.Linq;
 using NewAPIProject.Extra;
 using NewAPIProject.ViewModels;
+using NewAPIProject.Extras;
+using najjar.biz.Extra;
+using System.Data.Entity;
 
 namespace NewAPIProject.Controllers
 {
@@ -80,7 +83,8 @@ namespace NewAPIProject.Controllers
                 CreationDate = user.CreationDate,
                 LastModificationDate = user.LastModificationDate,
                 PhoneNumber = user.PhoneNumber,
-                companyUser=user.companyUser
+                companyUser = user.companyUser,
+                photoId = user.AttachmentId
 
             };
             result.UserRoles = userManager.GetRoles(user.Id).ToList() ;
@@ -90,8 +94,14 @@ namespace NewAPIProject.Controllers
 
         // POST api/Account/Logout
         [Route("Logout")]
-        public IHttpActionResult Logout()
+        public IHttpActionResult Logout(string token="")
         {
+            if (!token.Equals("")) {
+                var user = core.getCurrentUser();
+                UsersDeviceTokens temp = db.UsersDeviceTokens.Where(a => a.UserId.Equals(user.Id)).FirstOrDefault();
+                if (temp.token.Contains(token))
+                    temp.token.Replace(token,"");
+            }
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
@@ -374,12 +384,57 @@ namespace NewAPIProject.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> VerifyEmail(VerifyEmail model)
         {
-            UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(model.userId, model.code);
+            var user = db.Users.Where(a => a.Email.Equals(model.email)).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("No matching user with this email!");
+            }
+            UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(model.userId==null?user.Id:model.userId, model.code);
 
             if (result.status.Equals("500"))
                 return BadRequest(result.message);
             else
                 return Ok(result);
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> RequestPasswordReset([FromUri] String Email)
+        {
+            var user = db.Users.Where(a => a.Email.Equals(Email)).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("No matching user with this email!");
+            }
+            UserVerificationHelper.VerificationResult result = UserVerificationHelper.generateVerificationLog(user.Id, Email);
+
+            if (result.status.Equals("500"))
+                return BadRequest(result.message);
+            else
+                return Ok(result);
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ForgetPassword([FromUri] String Email,[FromUri]String NewPassword)
+        {
+            var user = db.Users.Where(a => a.Email.Equals(Email)).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("No matching user with this email!");
+            }
+
+            IdentityResult remove = await UserManager.RemovePasswordAsync(user.Id);
+            IdentityResult result = await UserManager.AddPasswordAsync(user.Id, NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
 
         }
 
@@ -581,7 +636,7 @@ namespace NewAPIProject.Controllers
         #endregion
         [Route("BuyProduct")]
         [HttpPost]
-        public IHttpActionResult BuyProduct([FromBody]ContactUsBindingModel bind,[FromUri] int ProductId)
+        public async Task<IHttpActionResult> BuyProduct([FromBody]ContactUsBindingModel bind,[FromUri] int ProductId)
 
         {
             ApplicationUser user = core.getCurrentUser();
@@ -601,8 +656,17 @@ namespace NewAPIProject.Controllers
             //Add Shipping Request
             ShippingRequest request = addShippingRequest(user,product,bind);
 
-            //Send Notification to Company User
-            sendNotification(user,request);
+            try
+            {
+                await sendNotificationAsync(request);
+            }
+            catch (Exception e)
+            {
+
+                sendEmail(e.StackTrace, "gerranzuv@gmail.com");
+            }
+            
+            
 
             
             return Ok(request);
@@ -623,6 +687,8 @@ namespace NewAPIProject.Controllers
             request.phoneNumber = temp.phoneNumber;
             request.Address = temp.Address;
             request.Email = temp.Email;
+            request.size = temp.size;
+            request.photoId = temp.photoId;
 
             db.ShippingRequests.Add(request);
             db.SaveChanges();
@@ -630,9 +696,15 @@ namespace NewAPIProject.Controllers
 
         }
 
-        private void sendNotification(ApplicationUser user, ShippingRequest request)
+        private async Task sendNotificationAsync( ShippingRequest request)
         {
             //Implementation here
+            UsersDeviceTokens tokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(request.prodcut.Company.CompanyUserId)).FirstOrDefault();
+            if (tokens != null)
+            {
+                string[] listOfTokens = tokens.token.Split(';');
+                await PushNotificationLogic.SendPushNotification(listOfTokens, "New Shipping Request", "", request);
+            }
         }
 
         public Payment AddNewPayment(Product product, ApplicationUser user)
@@ -703,6 +775,37 @@ namespace NewAPIProject.Controllers
             await db.SaveChangesAsync();
 
             return Ok(temp);
+        }
+
+        private  bool sendEmail(String code, String email)
+        {
+            var _isOnProcuctionParameter = ParameterRepository.findByCode("is_on_production");
+            Int32 isOnProcuctionParameter = Int32.Parse(_isOnProcuctionParameter);
+
+            if (isOnProcuctionParameter == 1)
+            {
+                String subject = "Error";
+                String body =   code;
+                List<string> receivers = new List<string>();
+                receivers.Add(email);
+                EmailHelper.sendEmail(receivers, subject, body);
+                return true;
+            }
+            return false;
+        }
+
+        [Route("UpdatePhoto")]
+        [HttpGet]
+        public async Task<IHttpActionResult> updatePhoto(int attachment_id,string userId)
+        {
+            Attachment attach = db.Attachments.Find(attachment_id);
+            if (attach == null)
+                return BadRequest("No matching photo");
+            ApplicationUser user = db.Users.AsNoTracking().Where(a => a.Id.Equals(userId)).FirstOrDefault();
+            user.AttachmentId = attach.id;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+            return Ok();
         }
     }
 }

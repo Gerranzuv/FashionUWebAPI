@@ -27,6 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.LastModificationDate)
             </th>
+            <th>Company Ratio</th>
             <th></th>
         </tr>
     </thead>
@@ -50,7 +51,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastModificationDate)
                 </td>
-               
+               <td>
+                   @Html.DisplayFor(modelItem=>item.CompanyRatio)
+               </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.id }) |

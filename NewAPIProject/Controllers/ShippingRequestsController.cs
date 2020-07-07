@@ -36,8 +36,13 @@ namespace NewAPIProject.Controllers
         [EnableQuery]
         public IQueryable<ShippingRequest> GetShippingRequests()
         {
-            string user = core.getCurrentUser().Id;
-            return db.ShippingRequests.Where(a => a.prodcut.Company.CompanyUserId.Equals(user));
+            //var user = core.getCurrentUser();
+            //if(user.companyUser)
+            //    return db.ShippingRequests.Where(a => a.prodcut.Company.CompanyUserId.Equals(user.Id));
+            //else
+            //    return db.ShippingRequests.Where(a => a.Creator.Equals(user.Id));
+            return db.ShippingRequests.OrderByDescending(a=>a.CreationDate);
+
         }
 
         // GET: odata/ShippingRequests(5)
@@ -92,7 +97,7 @@ namespace NewAPIProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            shippingRequest.CreationDate = DateTime.Now;
+            shippingRequest.CreationDate = DateTime.Now.AddHours(CoreController.HOURS_TO_ADD);
             shippingRequest.LastModificationDate = DateTime.Now;
             shippingRequest.Creator = core.getCurrentUser().UserName;
             shippingRequest.Modifier = core.getCurrentUser().UserName;

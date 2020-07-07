@@ -44,6 +44,8 @@ namespace NewAPIProject.Models
 
         public Boolean companyUser { get; set; }
 
+        public int AttachmentId { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

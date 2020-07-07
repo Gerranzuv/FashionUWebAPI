@@ -21,6 +21,8 @@ namespace NewAPIProject.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        public const int HOURS_TO_ADD = 10;
+
         public CoreController() { }
 
         //POST /api/Core/Upload 

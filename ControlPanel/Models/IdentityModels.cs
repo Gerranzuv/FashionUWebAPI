@@ -70,5 +70,13 @@ namespace ControlPanel.Models
         public System.Data.Entity.DbSet<ControlPanel.Models.Attachment> Attachments { get; set; }
 
         public System.Data.Entity.DbSet<ControlPanel.Models.ShippingRequest> ShippingRequests { get; set; }
+
+        public System.Data.Entity.DbSet<ControlPanel.Models.Contactus> Contactus { get; set; }
+
+        public System.Data.Entity.DbSet<ControlPanel.Models.EmailLog> EmailLogs { get; set; }
+
+        public System.Data.Entity.DbSet<ControlPanel.Models.SystemParameter> SystemParameters { get; set; }
+
+        public System.Data.Entity.DbSet<ControlPanel.Models.UsersDeviceTokens> UsersDeviceTokens { get; set; }
     }
 }

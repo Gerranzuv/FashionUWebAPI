@@ -36,5 +36,9 @@ namespace NewAPIProject.Models
 
         public string Address { get; set; }
 
+        public int photoId { get; set; }
+
+        public string size { get; set; }
+
     }
 }

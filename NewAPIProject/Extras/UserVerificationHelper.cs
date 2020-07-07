@@ -159,10 +159,10 @@ namespace NewAPIProject.Extra
         {
             VerificationResult result = new VerificationResult();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            if (userManager.IsInRole(userId, "Client")) {
-                result.addError("User is already verified!");
-                return result;
-            }
+            //if (userManager.IsInRole(userId, "Client")) {
+            //    result.addError("User is already verified!");
+            //    return result;
+            //}
             UserVerificationLog currentLog = db.UserVerificationLogs.Where(a => a.UserId.Equals(userId)
                 && a.Status.Equals("NOT_CONFIRMED") && a.Code.Equals(code)).FirstOrDefault() ;
            
@@ -179,8 +179,11 @@ namespace NewAPIProject.Extra
                 currentLog.LastModificationDate = DateTime.Now;
                 db.Entry(currentLog).State = EntityState.Modified;
                 db.SaveChanges();
-                assignUserToGuestRole(userId);
-                userManager.RemoveFromRole(userId, "Guest");
+                if (!userManager.IsInRole(userId, "Client")){
+                    assignUserToGuestRole(userId);
+                    userManager.RemoveFromRole(userId, "Guest");
+                }
+                
                 result.addSuccess("Success");
             }
             else

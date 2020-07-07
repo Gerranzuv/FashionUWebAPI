@@ -51,7 +51,7 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,isActive,CompanyUserId")] Company company)
+        public ActionResult Create( Company company)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,isActive,CompanyUserId")] Company company)
+        public ActionResult Edit( Company company)
         {
             if (ModelState.IsValid)
             {
@@ -101,6 +101,8 @@ namespace ControlPanel.Controllers
                 temp.CompanyUserId = user.Id;
                 temp.LastModificationDate = DateTime.Now;
                 temp.Modifier = getCurrentUser().Id;
+                temp.name = company.name;
+                temp.CompanyRatio = company.CompanyRatio;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

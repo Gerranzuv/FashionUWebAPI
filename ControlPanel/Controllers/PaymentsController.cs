@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ControlPanel.Models;
+using ControlPanel.ViewModels;
 
 namespace ControlPanel.Controllers
 {
@@ -16,16 +17,48 @@ namespace ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Payments
-        public ActionResult Index(int? CompanyUserId)
+        public ActionResult Index(int? CompanyUserId,String fromDate="", String toDate="")
         {
-            var payments = db.Payments.Include(p => p.Company).Include(p => p.prodcut);
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
+
+            List<Payment> payments = db.Payments.Include(p => p.Company).Include(p => p.prodcut).ToList();
+
+            payments = payments.Where(a => a.CreationDate.CompareTo(from) >= 0
+            && a.CreationDate.CompareTo(to) <= 0).ToList();
+            
             if (CompanyUserId != null)
             {
-                payments= db.Payments.Include(p => p.Company).Include(p => p.prodcut).Where(a => a.CompanyId ==CompanyUserId);
+                payments= payments.Where(a => a.CompanyId ==CompanyUserId).ToList();
+            }
+
+            List<PaymnetViewModel> finalPayments = new List<PaymnetViewModel>();
+            foreach (var item in payments)
+            {
+                PaymnetViewModel temp = new PaymnetViewModel();
+                temp.Amount = item.Amount;
+                temp.UserAmount = (item.Amount * item.Company.CompanyRatio)/100;
+                temp.CompanyAmount = temp.Amount - temp.UserAmount;
+                temp.CompanyName = item.Company.name;
+                temp.prodcutCode = item.prodcut.ItemCode;
+                temp.Status = item.Status;
+                temp.productType = item.prodcut.Type;
+                temp.CreationDate = item.CreationDate;
+                temp.Method = item.Method;
+                temp.currency = item.currency;
+                finalPayments.Add(temp);
             }
             ViewBag.CompanyUserId = new SelectList(db.Companies, "Id", "Name");
             
-            return View(payments.ToList());
+            return View(finalPayments);
         }
 
         // GET: Payments/Details/5

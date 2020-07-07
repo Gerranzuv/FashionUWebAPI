@@ -70,9 +70,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.LastModificationDate)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.AttachmentId)
-            </th>
+            </th>*@
         </tr>
     </thead>
     
@@ -135,9 +135,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastModificationDate)
                 </td>
-                <td>
-                   @Html.ActionLink("Photo", "Download", new { FilePath = item.AttachmentId })
-                </td>
+                @*<td>
+                   @{
+                       var path1 = Path.Combine("/Images/", item.Attachments[0].FileName);
+                    <img style="height:100px;width:100px" src="@path1" />
+
+                }
+                </td>*@
                 @*<td>
                     @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
                     @Html.ActionLink("Details", "Details", new { id=item.id }) |

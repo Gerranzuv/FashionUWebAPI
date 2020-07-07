@@ -72,5 +72,7 @@ namespace NewAPIProject.Models
         public int CompanyId { get; set; }
 
         public bool IsBackGroundWhite { get; set; }
+
+        public string productDescription { get; set; }
     }
 }

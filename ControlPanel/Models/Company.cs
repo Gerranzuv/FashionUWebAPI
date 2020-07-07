@@ -15,5 +15,7 @@ namespace ControlPanel.Models
         public String CompanyUserId { get; set; }
 
         public ApplicationUser CompanyUser { get; set; }
+
+        public double CompanyRatio { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace ControlPanel.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View(db.Products.Include("Attachments").ToList());
         }
 
         // GET: Products/Details/5
