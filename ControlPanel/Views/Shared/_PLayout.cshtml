@@ -54,17 +54,18 @@
                         <div class="m-stack m-stack--ver m-stack--general m-stack--fluid">
                             <div class="m-stack__item m-stack__item--middle m-brand__logo">
                                 <a href="@Url.Action("Index", "Home")" class="m-brand__logo-wrapper" >
-                                    <img  style="height:100px" alt="" src="~/Images/Logo.png" />
+                                    @*<img  style="height:100px" alt="" src="~/Images/Logo.png" />*@
+                                    <img  style="height:75px;width:75px" src="~/Images/Logo2.jpeg" />
                                 </a>
                             </div>
 
-                            @*<div class="m-subheader">
+                            <div class="m-subheader" style="align-items: flex-end;">
                                 <div>
                                     <ul class="nav navbar-nav" style=" margin-top:2%">
                                         @Html.Partial("_LoginPartial")
                                     </ul>
                                 </div>
-                            </div*@
+                            </div
                            
                             <div class="m-stack__item m-stack__item--middle m-brand__tools">
                                 @*<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-left m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
@@ -132,9 +133,9 @@
 
                                 <!-- END -->
                                 <!-- BEGIN: Topbar Toggler -->
-                                <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                                @*<a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
                                     <i class="flaticon-more"></i>
-                                </a>
+                                </a>*@
 
                                 <!-- BEGIN: Topbar Toggler -->
                             </div>
@@ -205,6 +206,7 @@
                                     <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="@Url.Action("OpenShippingRequests", "ShippingRequests")" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Open Shipping Requests</span></a></li>
                                     <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="@Url.Action("ScheduledShippingRequests", "ShippingRequests")" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Scheduled Shipping Requests</span></a></li>
                                     <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="@Url.Action("DoneShippingRequests", "ShippingRequests")" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Done Shipping Requests</span></a></li>
+                                    <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="@Url.Action("CancelledShippingRequests", "ShippingRequests")" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Cancelled Shipping Requests</span></a></li>
 
                                 </ul>
                             </div>

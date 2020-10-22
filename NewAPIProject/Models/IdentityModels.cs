@@ -46,6 +46,8 @@ namespace NewAPIProject.Models
 
         public int AttachmentId { get; set; }
 
+        public string passText { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

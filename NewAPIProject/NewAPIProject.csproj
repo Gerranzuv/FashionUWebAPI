@@ -412,6 +412,14 @@
     <Compile Include="Migrations\202006211737495_commit.Designer.cs">
       <DependentUpon>202006211737495_commit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007142119255_fashionRatio.cs" />
+    <Compile Include="Migrations\202007142119255_fashionRatio.Designer.cs">
+      <DependentUpon>202007142119255_fashionRatio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009221649135_passText.cs" />
+    <Compile Include="Migrations\202009221649135_passText.Designer.cs">
+      <DependentUpon>202009221649135_passText.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -621,6 +629,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006211737495_commit.resx">
       <DependentUpon>202006211737495_commit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007142119255_fashionRatio.resx">
+      <DependentUpon>202007142119255_fashionRatio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009221649135_passText.resx">
+      <DependentUpon>202009221649135_passText.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

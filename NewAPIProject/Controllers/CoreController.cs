@@ -21,7 +21,8 @@ namespace NewAPIProject.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public const int HOURS_TO_ADD = 10;
+        public const int HOURS_TO_ADD = 3;
+        public const string WEBSITE_URL = "http://api.arfashion-u.com/";
 
         public CoreController() { }
 

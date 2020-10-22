@@ -10,6 +10,7 @@ using ControlPanel.Models;
 
 namespace ControlPanel.Controllers
 {
+    [Authorize]
     public class ContactusController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

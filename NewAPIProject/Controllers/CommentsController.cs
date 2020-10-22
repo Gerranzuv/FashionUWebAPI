@@ -105,7 +105,7 @@ namespace NewAPIProject.Controllers
             comment.Creator = core.getCurrentUser().Name;
             comment.Modifier = core.getCurrentUser().Id;
             comment.LastModificationDate = DateTime.Now;
-            comment.CreationDate = DateTime.Now.AddHours(CoreController.HOURS_TO_ADD);
+            comment.CreationDate = DateTime.UtcNow.AddHours(CoreController.HOURS_TO_ADD);
             comment.Product = product;
             db.Comments.Add(comment);
             await db.SaveChangesAsync();

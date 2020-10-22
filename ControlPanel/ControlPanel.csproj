@@ -471,6 +471,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Logo.png" />
+    <Content Include="Images\Logo2.jpeg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -599,6 +600,7 @@
     <Content Include="Views\UsersDeviceTokens\Details.cshtml" />
     <Content Include="Views\UsersDeviceTokens\Edit.cshtml" />
     <Content Include="Views\UsersDeviceTokens\Index.cshtml" />
+    <Content Include="Views\ShippingRequests\CancelledShippingRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,19 +25,24 @@ namespace ControlPanel.Controllers
         // GET: ShippingRequests
         public ActionResult OpenShippingRequests()
         {
-            var shippingRequests = db.ShippingRequests.Include(s => s.Payment).Include(s => s.prodcut).Where(a => a.Status.Equals("Active"));
+            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Active")).Include(s => s.Payment).Include(s => s.prodcut);
+            return View(shippingRequests.ToList());
+        }
+        public ActionResult CancelledShippingRequests()
+        {
+            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Cancelled")).Include(s => s.Payment).Include(s => s.prodcut);
             return View(shippingRequests.ToList());
         }
 
         public ActionResult DoneShippingRequests()
         {
-            var shippingRequests = db.ShippingRequests.Include(s => s.Payment).Include(s => s.prodcut).Where(a=>a.Status.Equals("Done"));
+            var shippingRequests = db.ShippingRequests.Include(s => s.Payment).Where(a => a.Status.Equals("Done")).Include(s => s.prodcut);
             return View(shippingRequests.ToList());
         }
 
         public ActionResult ScheduledShippingRequests()
         {
-            var shippingRequests = db.ShippingRequests.Include(s => s.Payment).Include(s => s.prodcut).Where(a => a.Status.Equals("Scheduled"));
+            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Scheduled")).Include(s => s.Payment).Include(s => s.prodcut);
             return View(shippingRequests.ToList());
         }
 

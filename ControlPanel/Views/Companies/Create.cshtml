@@ -53,6 +53,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FashionU3DRatio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.FashionU3DRatio)
+                    @Html.ValidationMessageFor(model => model.FashionU3DRatio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
        
 
         

@@ -17,5 +17,7 @@ namespace ControlPanel.Models
         public ApplicationUser CompanyUser { get; set; }
 
         public double CompanyRatio { get; set; }
+
+        public double FashionU3DRatio { get; set; }
     }
 }

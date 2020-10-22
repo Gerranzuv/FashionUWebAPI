@@ -19,5 +19,7 @@ namespace NewAPIProject.Models
 
         [Display (Name ="Company Ratio")]
         public double CompanyRatio { get; set; }
+
+        public double FashionU3DRatio { get; set; }
     }
 }

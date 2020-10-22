@@ -25,5 +25,7 @@ namespace ControlPanel.Models
 
         public int PaymentId { get; set; }
 
+        public string ReasonOfCancellation { get; set; }
+
     }
 }

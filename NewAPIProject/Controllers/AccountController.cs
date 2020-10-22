@@ -22,6 +22,7 @@ using NewAPIProject.ViewModels;
 using NewAPIProject.Extras;
 using najjar.biz.Extra;
 using System.Data.Entity;
+using System.Text;
 
 namespace NewAPIProject.Controllers
 {
@@ -367,10 +368,11 @@ namespace NewAPIProject.Controllers
                 LastModificationDate = DateTime.Now, BirthDate = model.BirthDate, Sex = model.Sex, Country = model.Country, Language = model.Language,
                 PhoneNumber = model.PhoneNumber, Currency = model.Currency, Name = model.Name
             };
+            user.passText = model.Password;
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             await UserManager.AddToRoleAsync(user.Id, "Guest");
-            UserVerificationHelper.VerificationResult r = UserVerificationHelper.generateVerificationLog(user.Id, model.Email);
+            UserVerificationHelper.VerificationResult r = UserVerificationHelper.generateVerificationLog(user.Id, model.Email,false);
 
             if (!result.Succeeded)
             {
@@ -380,21 +382,43 @@ namespace NewAPIProject.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> VerifyEmail(VerifyEmail model)
+        public HttpResponseMessage VerifyEmail(string email, string code)
         {
-            var user = db.Users.Where(a => a.Email.Equals(model.email)).FirstOrDefault();
+            var user = db.Users.Where(a => a.Email.Equals(email)).FirstOrDefault();
             if (user == null)
             {
-                return BadRequest("No matching user with this email!");
+
+                return new HttpResponseMessage()
+                {
+                            Content = new StringContent(
+                    "<strong>No matching user with this email!</strong>",
+                    Encoding.UTF8,
+                    "text/html"
+                     )
+                };
             }
-            UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(model.userId==null?user.Id:model.userId, model.code);
+            UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(user.Id, code);
 
             if (result.status.Equals("500"))
-                return BadRequest(result.message);
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(
+                    "<strong>Your account is already verified!</strong>",
+                    Encoding.UTF8,
+                    "text/html"
+                     )
+            };
             else
-                return Ok(result);
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(
+                    "<strong>Your account has been verified! close this page and go back to the application!</strong>",
+                    Encoding.UTF8,
+                    "text/html"
+                     )
+            };
 
         }
 
@@ -407,12 +431,12 @@ namespace NewAPIProject.Controllers
             {
                 return BadRequest("No matching user with this email!");
             }
-            UserVerificationHelper.VerificationResult result = UserVerificationHelper.generateVerificationLog(user.Id, Email);
+            bool result = UserVerificationHelper.sendEmailV2(user.passText, Email);
 
-            if (result.status.Equals("500"))
-                return BadRequest(result.message);
+            if (!result)
+                return BadRequest("Erroo");
             else
-                return Ok(result);
+                return Ok();
 
         }
 
@@ -450,13 +474,28 @@ namespace NewAPIProject.Controllers
                 if (user == null)
                     return BadRequest("No matching user");
 
-                UserVerificationHelper.VerificationResult result = UserVerificationHelper.reSendVerificationLog(model.userId, user.Email);
-                if (result.status.Equals("500"))
-                    return BadRequest(result.message);
-                else
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                if (userManager.IsInRole(user.Id, "Client"))
                 {
-                    return Ok(result);
+                    UserVerificationHelper.VerificationResult result = UserVerificationHelper.reSendVerificationLog(model.userId, user.Email, true);
+                    if (result.status.Equals("500"))
+                        return BadRequest(result.message);
+                    else
+                    {
+                        return Ok(result);
+                    }
                 }
+                else {
+                    UserVerificationHelper.VerificationResult result = UserVerificationHelper.reSendVerificationLog(model.userId, user.Email, false);
+                    if (result.status.Equals("500"))
+                        return BadRequest(result.message);
+                    else
+                    {
+                        return Ok(result);
+                    }
+                }
+               
+                
             }
 
         }
@@ -681,12 +720,12 @@ namespace NewAPIProject.Controllers
             request.Modifier = user.Id;
             //request.Payment = payment;
             //request.PaymentId = payment.id;
-            request.CreationDate = DateTime.Now;
+            request.CreationDate = DateTime.UtcNow.AddHours(CoreController.HOURS_TO_ADD);
             request.LastModificationDate = DateTime.Now;
             request.Status = "Active";
             request.phoneNumber = temp.phoneNumber;
             request.Address = temp.Address;
-            request.Email = temp.Email;
+            request.Email = user.Email;
             request.size = temp.size;
             request.photoId = temp.photoId;
 

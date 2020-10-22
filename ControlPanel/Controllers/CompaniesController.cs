@@ -62,6 +62,7 @@ namespace ControlPanel.Controllers
                 company.isActive = true;
                 company.Creator = getCurrentUser().Id;
                 company.Modifier = getCurrentUser().Id;
+                
                 db.Companies.Add(company);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -103,6 +104,7 @@ namespace ControlPanel.Controllers
                 temp.Modifier = getCurrentUser().Id;
                 temp.name = company.name;
                 temp.CompanyRatio = company.CompanyRatio;
+                temp.FashionU3DRatio = company.FashionU3DRatio;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

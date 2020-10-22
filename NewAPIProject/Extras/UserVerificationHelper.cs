@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using najjar.biz.Extra;
+using NewAPIProject.Controllers;
 using NewAPIProject.Models;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace NewAPIProject.Extra
             return result;
         }
 
-        public static VerificationResult generateVerificationLog(string userId, String email)
+        public static VerificationResult generateVerificationLog(string userId, String email,bool password)
         {
             UserVerificationLog log=new UserVerificationLog();
             log.Code=GenerateCode();
@@ -84,7 +85,7 @@ namespace NewAPIProject.Extra
             log.Status="NOT_CONFIRMED";
             log.UserId=userId;
             log.Email=email;
-            log.IsEmailSent=sendEmail(log.Code,email);
+            log.IsEmailSent = password ? sendEmailV2(log.Code, email): sendEmail(log.Code,email);
             db.UserVerificationLogs.Add(log);
             VerificationResult result = new VerificationResult();
 
@@ -121,8 +122,9 @@ namespace NewAPIProject.Extra
 
             if (isOnProcuctionParameter==1)
             {
-                String subject = "Verfication Code for FashoinU  Account";
-                String body = "Please use the following code to register to the application " + code;
+                String subject = "Account Verification Fashoin U3D";
+                String body = "Please click on the following link to verify your account " + CoreController.WEBSITE_URL+
+                    "api/Account/VerifyEmail?email=" + email+"&code="+code;
                 List<string> receivers = new List<string>();
                 receivers.Add(email);
                 EmailHelper.sendEmail(receivers, subject, body);
@@ -131,7 +133,24 @@ namespace NewAPIProject.Extra
             return false;
         }
 
-        public static VerificationResult reSendVerificationLog(string userId, String email)
+        public static bool sendEmailV2(String code, String email)
+        {
+            var _isOnProcuctionParameter = ParameterRepository.findByCode("is_on_production");
+            Int32 isOnProcuctionParameter = Int32.Parse(_isOnProcuctionParameter);
+
+            if (isOnProcuctionParameter == 1)
+            {
+                String subject = "Account info Fashion U3D";
+                String body = "Please use the following password to login to your account " +code;
+                List<string> receivers = new List<string>();
+                receivers.Add(email);
+                EmailHelper.sendEmail(receivers, subject, body);
+                return true;
+            }
+            return false;
+        }
+
+        public static VerificationResult reSendVerificationLog(string userId, String email,bool password)
         {
             VerificationResult result = new VerificationResult();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
@@ -152,7 +171,7 @@ namespace NewAPIProject.Extra
                 item.LastModificationDate = DateTime.Now;
                 db.Entry(item).State = EntityState.Modified;
             }
-            return generateVerificationLog(userId, email);
+            return generateVerificationLog(userId, email,password);
         }
 
         public static VerificationResult verifyCode(string userId, String code)

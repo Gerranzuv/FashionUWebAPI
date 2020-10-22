@@ -1,35 +1,45 @@
-﻿@model IEnumerable<ControlPanel.Models.Company>
+﻿@model IEnumerable<ControlPanel.Models.ShippingRequest>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Open Shipping Requests";
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>Index</h2>
-
+<h1>Cancelled Shipping Requests</h1>
+<br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 
 <table id="myTable"  class="cell-border hover stripe" style="width:100%">
     <thead>
         <tr>
             <th>
-               Name
+                Payment Id
             </th>
             <th>
-                Is Active
+                Payment Amount
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompanyUserId)
+                Product Code
+            </th>
+            <th>
+                Product Type
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.scheduledDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastModificationDate)
+                @Html.DisplayNameFor(model => model.Creator)
             </th>
-            <th>Company Ratio</th>
-            <th>Fashion U3d Ratio</th>
-            <th></th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ReasonOfCancellation)
+            </th>
+
+            @*<th></th>*@
         </tr>
     </thead>
 
@@ -38,37 +48,42 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                    @Html.DisplayFor(modelItem => item.Payment.id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.isActive)
+                    @Html.DisplayFor(modelItem => item.Payment.Amount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CompanyUserId)
+                    @Html.DisplayFor(modelItem => item.prodcut.ItemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prodcut.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.scheduledDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastModificationDate)
-                </td>
-               <td>
-                   @Html.DisplayFor(modelItem=>item.CompanyRatio)
-               </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FashionU3DRatio)
+                    @Html.DisplayFor(modelItem => item.Creator)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    @Html.DisplayFor(modelItem => item.ReasonOfCancellation)
                 </td>
-            </tr>
 
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                    </td>*@
+            </tr>
         }
     </tbody>
 
 </table>
+
+
 
 @section scripts{
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

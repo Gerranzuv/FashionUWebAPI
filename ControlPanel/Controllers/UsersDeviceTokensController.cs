@@ -10,6 +10,7 @@ using ControlPanel.Models;
 
 namespace ControlPanel.Controllers
 {
+    [Authorize]
     public class UsersDeviceTokensController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

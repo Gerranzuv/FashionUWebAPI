@@ -97,7 +97,7 @@ namespace NewAPIProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            shippingRequest.CreationDate = DateTime.Now.AddHours(CoreController.HOURS_TO_ADD);
+            shippingRequest.CreationDate = DateTime.UtcNow.AddHours(CoreController.HOURS_TO_ADD);
             shippingRequest.LastModificationDate = DateTime.Now;
             shippingRequest.Creator = core.getCurrentUser().UserName;
             shippingRequest.Modifier = core.getCurrentUser().UserName;
