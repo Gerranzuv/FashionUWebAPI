@@ -150,6 +150,9 @@ namespace NewAPIProject.Controllers
                     if(shippingRequest.Status.Equals("Cancelled"))
                     {
                         shippingRequest.CancelationDate = DateTime.Now;
+                        Attachment attach = db.Attachments.Find(shippingRequest.photoId);
+                        attach.NumOfItems += shippingRequest.count;
+                        db.Entry(attach).State = EntityState.Modified;
                     }
                     if (shippingRequest.Status.Equals("Done")) {
                         Product product = db.Products.Find(shippingRequest.productId);

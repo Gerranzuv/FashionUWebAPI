@@ -111,7 +111,13 @@ namespace ControlPanel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = db.Products.Where(a=>a.id.Equals(id)).Include(a=>a.Attachments).FirstOrDefault();
+            List<int> ids = product.Attachments.Select(a => a.id).ToList();
+            List<Attachment> attachments = db.Attachments.Where(a => ids.Contains(a.id)).ToList();
+            foreach (var item in attachments)
+            {
+                db.Attachments.Remove(item);
+            }
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");

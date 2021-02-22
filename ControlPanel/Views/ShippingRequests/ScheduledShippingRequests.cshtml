@@ -13,12 +13,12 @@
 <table id="myTable"  class="cell-border hover stripe" style="width:100%">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 Payment Id
             </th>
             <th>
                 Payment Amount
-            </th>
+            </th>*@
             <th>
                 Product Code
             </th>
@@ -46,12 +46,12 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Payment.id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Payment.Amount)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.prodcut.ItemCode)
                 </td>

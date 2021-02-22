@@ -13,21 +13,21 @@
 <table id="myTable"  class="cell-border hover stripe" style="width:100%">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 Payment Id
             </th>
             <th>
                 Payment Amount
-            </th>
+            </th>*@
             <th>
                 Product Code
             </th>
             <th>
                 Product Type
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.scheduledDate)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
             </th>
@@ -46,21 +46,21 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Payment.id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Payment.Amount)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.prodcut.ItemCode)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.prodcut.Type)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.scheduledDate)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>

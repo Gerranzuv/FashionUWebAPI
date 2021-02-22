@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -27,7 +28,18 @@ namespace ControlPanel.Models
         public string Brand { get; set; }
 
         [Display(Name = "Number of Items")]
-        public int NumberOfItems { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int NumberOfItems
+        {
+            get
+            {
+                if (this.Attachments != null && this.Attachments.Count > 0)
+                    return this.Attachments.Sum(a => a.NumOfItems);
+                else
+                    return 0;
+            }
+            set { }
+        }
 
         [Display(Name = "Available Colors")]
         public string AvailableColors { get; set; }

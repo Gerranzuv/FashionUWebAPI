@@ -29,7 +29,7 @@ namespace NewAPIProject.Models
 
         public String extension { get; set; }
 
-
+        public int NumOfItems { get; set; }
         public String Link { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using ControlPanel.Models;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

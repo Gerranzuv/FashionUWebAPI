@@ -42,7 +42,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
-            @*<th></th>*@
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -77,11 +77,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
-                @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-                </td>*@
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                    @Html.ActionLink("Delete", "DeleteCompanyUser", new { id=item.Id })
+                </td>
             </tr>
         }
     </tbody>

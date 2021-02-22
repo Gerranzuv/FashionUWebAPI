@@ -40,5 +40,7 @@ namespace NewAPIProject.Models
 
         public string size { get; set; }
 
+        public int count { get; set; }
+
     }
 }

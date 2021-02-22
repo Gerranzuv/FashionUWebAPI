@@ -728,7 +728,12 @@ namespace NewAPIProject.Controllers
             request.Email = user.Email;
             request.size = temp.size;
             request.photoId = temp.photoId;
+            request.count = temp.count;
 
+
+            Attachment attach = db.Attachments.Find(temp.photoId);
+            attach.NumOfItems-= temp.count;
+            db.Entry(attach).State = EntityState.Modified;
             db.ShippingRequests.Add(request);
             db.SaveChanges();
             return request;
@@ -776,7 +781,8 @@ namespace NewAPIProject.Controllers
                 CompanyUserId = a.CompanyUserId,
                 id = a.id,
                 isActive = a.isActive,
-                CompanyUserName = a.CompanyUser.Name
+                CompanyUserName = a.name,
+
             }).ToList() ;
 
         }

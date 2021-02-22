@@ -22,5 +22,7 @@ namespace NewAPIProject.ViewModels
 
         public string size { get; set; }
 
+        public int count { get; set; }
+
     }
 }

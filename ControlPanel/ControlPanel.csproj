@@ -601,6 +601,7 @@
     <Content Include="Views\UsersDeviceTokens\Edit.cshtml" />
     <Content Include="Views\UsersDeviceTokens\Index.cshtml" />
     <Content Include="Views\ShippingRequests\CancelledShippingRequests.cshtml" />
+    <Content Include="Views\Account\DeleteCompanyUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -632,7 +633,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3270</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

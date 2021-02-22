@@ -3,49 +3,56 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>Statistics</h1>
-    <p class="lead">
-        <div class="row" style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> All Clients : </span> <span id="AllClients"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> All Companies : </span> <span id="AllCompanies"> value</span></div>
-        </div>
-        <div class="row " style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> All Payments :  </span> <span id="AllPayments"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> Payments Sum :</span> <span id="PaymentsSum"> value</span></div>
-        </div>
-        <div class="row " style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> All Shipping Requests : </span> <span id="AllShippingRequests"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> Done Shipping Requests : </span> <span id="DoneShippingRequests"> value</span></div>
-        </div>
-        <div class="row " style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> Open Shipping Requests :</span> <span id="OpenShippingRequests"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> Scheduled Shipping Request :</span> <span id="ScheduledShippingRequest"> value</span></div>
-        </div>
-        <div class="row " style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> All Products :</span> <span id="AllProducts"> value</span></div>
-        </div>
-    </p>
-    <p></p>
-</div>
+@if (User.IsInRole("Manager"))
+{
+    <div class="jumbotron">
+        <h1>Statistics</h1>
+        <p class="lead">
+            <div class="row" style="font-size:large">
+                <div class="col-md-6 col-sm-6 "><span> All Clients : </span> <span id="AllClients"> value</span></div>
+                <div class="col-md-6 col-sm-6"><span> All Companies : </span> <span id="AllCompanies"> value</span></div>
+            </div>
+            <div class="row " style="font-size:large">
+                <div class="col-md-6 col-sm-6 "><span> All Payments :  </span> <span id="AllPayments"> value</span></div>
+                <div class="col-md-6 col-sm-6"><span> Payments Sum :</span> <span id="PaymentsSum"> value</span></div>
+            </div>
+            <div class="row " style="font-size:large">
+                <div class="col-md-6 col-sm-6 "><span> All Shipping Requests : </span> <span id="AllShippingRequests"> value</span></div>
+                <div class="col-md-6 col-sm-6"><span> Done Shipping Requests : </span> <span id="DoneShippingRequests"> value</span></div>
+            </div>
+            <div class="row " style="font-size:large">
+                <div class="col-md-6 col-sm-6 "><span> Open Shipping Requests :</span> <span id="OpenShippingRequests"> value</span></div>
+                <div class="col-md-6 col-sm-6"><span> Scheduled Shipping Request :</span> <span id="ScheduledShippingRequest"> value</span></div>
+            </div>
+            <div class="row " style="font-size:large">
+                <div class="col-md-6 col-sm-6 "><span> All Products :</span> <span id="AllProducts"> value</span></div>
+            </div>
+        </p>
+        <p></p>
+    </div>
+}
 
 <div class="row">
     <div class="col-md-4">
         <h2>Products List</h2>
         <p><a class="btn btn-default" href="@Url.Action("Index","Products")">Products &raquo;</a></p>
     </div>
+
+@if (User.IsInRole("Manager"))
+{
     <div class="col-md-4">
         <h2>Shipping Requests</h2>
         <p><a class="btn btn-default" href="@Url.Action("OpenShippingRequests","ShippingRequests")">Open Shipping Requests &raquo;</a></p>
         <p><a class="btn btn-default" href="@Url.Action("ScheduledShippingRequests","ShippingRequests")">Scheduled Shipping Requests &raquo;</a></p>
         <p><a class="btn btn-default" href="@Url.Action("DoneShippingRequests","ShippingRequests")">Done Shipping Requests &raquo;</a></p>
-        
+
     </div>
     <div class="col-md-4">
         <h2>Companies</h2>
         <p><a class="btn btn-default" href="@Url.Action("Companies","Account")">Companies &raquo;</a></p>
         <p><a class="btn btn-default" href="@Url.Action("Register","Account")">Add New Company &raquo;</a></p>
-    </div>
+    </div>}
+    
 </div>
 
 @section Scripts

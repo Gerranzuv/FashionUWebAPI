@@ -10,7 +10,7 @@ using ControlPanel.Models;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class ShippingRequestsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -25,12 +25,12 @@ namespace ControlPanel.Controllers
         // GET: ShippingRequests
         public ActionResult OpenShippingRequests()
         {
-            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Active")).Include(s => s.Payment).Include(s => s.prodcut);
+            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Active")).Include(s => s.prodcut);
             return View(shippingRequests.ToList());
         }
         public ActionResult CancelledShippingRequests()
         {
-            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Cancelled")).Include(s => s.Payment).Include(s => s.prodcut);
+            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Cancelled")).Include(s => s.prodcut);
             return View(shippingRequests.ToList());
         }
 
@@ -42,7 +42,7 @@ namespace ControlPanel.Controllers
 
         public ActionResult ScheduledShippingRequests()
         {
-            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Scheduled")).Include(s => s.Payment).Include(s => s.prodcut);
+            var shippingRequests = db.ShippingRequests.Where(a => a.Status.Equals("Scheduled")).Include(s => s.prodcut);
             return View(shippingRequests.ToList());
         }
 

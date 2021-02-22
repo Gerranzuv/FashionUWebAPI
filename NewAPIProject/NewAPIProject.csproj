@@ -420,6 +420,18 @@
     <Compile Include="Migrations\202009221649135_passText.Designer.cs">
       <DependentUpon>202009221649135_passText.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010251747405_products_count_update.cs" />
+    <Compile Include="Migrations\202010251747405_products_count_update.Designer.cs">
+      <DependentUpon>202010251747405_products_count_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101180705145_numOfItems.cs" />
+    <Compile Include="Migrations\202101180705145_numOfItems.Designer.cs">
+      <DependentUpon>202101180705145_numOfItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101181630358_numOfItems1.cs" />
+    <Compile Include="Migrations\202101181630358_numOfItems1.Designer.cs">
+      <DependentUpon>202101181630358_numOfItems1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -635,6 +647,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009221649135_passText.resx">
       <DependentUpon>202009221649135_passText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010251747405_products_count_update.resx">
+      <DependentUpon>202010251747405_products_count_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101180705145_numOfItems.resx">
+      <DependentUpon>202101180705145_numOfItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101181630358_numOfItems1.resx">
+      <DependentUpon>202101181630358_numOfItems1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

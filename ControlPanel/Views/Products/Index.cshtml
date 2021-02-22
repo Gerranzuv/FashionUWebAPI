@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.NumberOfItems)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AvailableColors)
+                @Html.DisplayNameFor(model => model.ExpiryDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AvailableSizes)
@@ -94,7 +94,7 @@
                     @Html.DisplayFor(modelItem => item.NumberOfItems)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AvailableColors)
+                    @Html.DisplayFor(modelItem => item.ExpiryDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AvailableSizes)
@@ -142,11 +142,11 @@
 
                 }
                 </td>*@
-                @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.id }) |*@
                     @Html.ActionLink("Delete", "Delete", new { id=item.id })
-                </td>*@
+                </td>
             </tr>
         }
 

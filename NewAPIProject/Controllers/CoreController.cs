@@ -28,7 +28,7 @@ namespace NewAPIProject.Controllers
 
         //POST /api/Core/Upload 
         [Route("Upload")]
-        public async Task<IHttpActionResult> SaveFile([FromUri] string tag)
+        public async Task<IHttpActionResult> SaveFile([FromUri] string tag="color", String NumOfItems="0")
         {
             var path = Path.GetTempPath();
 
@@ -41,7 +41,8 @@ namespace NewAPIProject.Controllers
 
             await Request.Content.ReadAsMultipartAsync(streamProvider);
             List<Attachment> result = new List<Attachment>();
-            String[] tags = tag.Split(new Char[] { ';' });
+            //String[] tags = tag.Split(new Char[] { ';' });
+            String[] Numbers = NumOfItems.Split(new Char[] { ';' });
             int counter = 0;
             foreach (MultipartFileData fileData in streamProvider.FileData)
             {
@@ -82,7 +83,8 @@ namespace NewAPIProject.Controllers
                 attach.Link = newFileName;
                 attach.Creator = getCurrentUser().UserName;
                 attach.Modifier = getCurrentUser().UserName;
-                attach.Tag = tag != null ? (tags[counter]) : "Default";
+                attach.NumOfItems = NumOfItems != null ? Int32.Parse((Numbers[counter])) : 1; ;
+                //attach.Tag = tag != null ? (tags[counter]) : "Default";
                 counter++;
                 db.Attachments.Add(attach);
                 db.SaveChanges();

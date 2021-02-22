@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ControlPanel.Models;
 using ControlPanel.ViewModels;
+using System.Net;
 
 namespace ControlPanel.Controllers
 {
@@ -447,6 +448,32 @@ namespace ControlPanel.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+
+        // GET: Contactus/Delete/5
+        public ActionResult DeleteCompanyUser(String id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: DeleteCompanyUser
+        [HttpPost, ActionName("DeleteCompanyUser")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(String id)
+        {
+            ApplicationUser user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Companies");
+        }
 
 
         protected override void Dispose(bool disposing)

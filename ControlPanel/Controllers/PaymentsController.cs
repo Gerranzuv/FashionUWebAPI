@@ -11,7 +11,7 @@ using ControlPanel.ViewModels;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class PaymentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
